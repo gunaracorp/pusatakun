@@ -1,6 +1,14 @@
 'use client'
 
-import { Crown, LayoutDashboard, LogOut, ShieldCheck, ShoppingBag, Store, UserRound } from 'lucide-react'
+import Link from 'next/link'
+import {
+  LayoutDashboard,
+  LogOut,
+  ShieldCheck,
+  ShoppingBag,
+  Store,
+  UserRound,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -11,19 +19,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { initialsOf } from '@/lib/marketplace'
+import { ROLE_BADGE_LABELS } from '@/components/rajaakun/role-badges'
 import { useAuthStore } from '@/store/auth-store'
-
-const ROLE_BADGE = {
-  BUYER: { label: 'Pembeli', className: 'bg-emerald-500/15 text-emerald-400' },
-  SELLER: { label: 'Penjual', className: 'bg-primary/15 text-primary' },
-  ADMIN: { label: 'Admin', className: 'bg-amber-500/15 text-amber-400' },
-} as const
 
 export function AccountMenu() {
   const { user, openDashboard, logout } = useAuthStore()
   if (!user) return null
 
-  const badge = ROLE_BADGE[user.role]
+  const badge = ROLE_BADGE_LABELS[user.role]
   const initials = initialsOf(user.name)
 
   return (
@@ -54,7 +57,7 @@ export function AccountMenu() {
           <span
             className={`mt-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${badge.className}`}
           >
-            {user.role === 'ADMIN' && <ShieldCheck className="h-3 w-3" aria-hidden="true" />}
+            <badge.Icon className="h-3 w-3" aria-hidden="true" />
             {badge.label}
           </span>
         </DropdownMenuLabel>
@@ -68,9 +71,11 @@ export function AccountMenu() {
           Dashboard Penjual
         </DropdownMenuItem>
         {user.role === 'ADMIN' && (
-          <DropdownMenuItem onClick={() => openDashboard('admin')} className="cursor-pointer gap-2">
-            <ShieldCheck className="h-4 w-4 text-amber-400" aria-hidden="true" />
-            Panel Admin (Kurasi)
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <Link href="/admin" className="gap-2">
+              <ShieldCheck className="h-4 w-4 text-amber-400" aria-hidden="true" />
+              Panel Admin (Halaman Penuh)
+            </Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem onClick={() => openDashboard('seller')} className="cursor-pointer gap-2">
@@ -87,33 +92,34 @@ export function AccountMenu() {
   )
 }
 
-/** Tombol Masuk (belum login) — dipakai navbar desktop & mobile. */
-export function LoginButton({ onClick, className }: { onClick: () => void; className?: string }) {
+/** Tombol Masuk (belum login) — halaman tunggal /masuk. Dipakai navbar desktop & mobile. */
+export function LoginButton({ href = '/masuk', className }: { href?: string; className?: string }) {
   return (
     <Button
       variant="outline"
-      onClick={onClick}
+      asChild
       aria-label="Masuk atau daftar dengan WhatsApp"
       className={
         className ??
         'h-11 gap-2 rounded-full border-primary/50 px-4 font-semibold transition-transform hover:scale-105 hover:bg-primary/10'
       }
     >
-      <UserRound className="h-4 w-4" aria-hidden="true" />
-      <span>Masuk</span>
+      <Link href={href}>
+        <UserRound className="h-4 w-4" aria-hidden="true" />
+        <span>Masuk</span>
+      </Link>
     </Button>
   )
 }
 
 /** Kartu akun untuk sheet menu mobile. */
 export function MobileAccountCard() {
-  const { user, openDashboard, openAuth, logout } = useAuthStore()
+  const { user, openDashboard, logout } = useAuthStore()
   if (!user) {
     return (
-      <button
-        type="button"
-        onClick={() => openAuth()}
-        className="flex w-full items-center gap-3 rounded-2xl border border-primary/40 bg-primary/10 p-4 text-left"
+      <Link
+        href="/masuk"
+        className="flex w-full items-center gap-3 rounded-2xl border-2 border-primary bg-primary/10 p-4 text-left transition-colors hover:bg-primary/20"
       >
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary">
           <UserRound className="h-5 w-5 text-primary-foreground" aria-hidden="true" />
@@ -122,11 +128,11 @@ export function MobileAccountCard() {
           <span className="block text-sm font-extrabold text-foreground">Masuk / Daftar</span>
           <span className="block text-xs text-muted-foreground">Satu klik via WhatsApp — gratis</span>
         </span>
-      </button>
+      </Link>
     )
   }
 
-  const badge = ROLE_BADGE[user.role]
+  const badge = ROLE_BADGE_LABELS[user.role]
   return (
     <div className="space-y-2 rounded-2xl border border-border bg-card/40 p-4">
       <div className="flex items-center gap-3">
@@ -142,7 +148,7 @@ export function MobileAccountCard() {
           <span
             className={`mt-1 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${badge.className}`}
           >
-            <Crown className="h-3 w-3" aria-hidden="true" />
+            <badge.Icon className="h-3 w-3" aria-hidden="true" />
             {badge.label}
           </span>
         </div>

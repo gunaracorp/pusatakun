@@ -47,23 +47,36 @@
   urutan (populer/termurah/termahal/rating), pagination.
 - Detail produk dalam Sheet: spesifikasi, garansi, trust chips, CTA WhatsApp.
 
-### 2.2 Login / Daftar dengan WhatsApp OTP ⭐ (fitur baru)
+### 2.2 Login / Daftar dengan WhatsApp OTP ⭐ (halaman tunggal)
+
+Tiga **halaman tunggal** khusus — semuanya berdiri sendiri, latar SOLID 100%
+(tanpa dialog/Sheet transparan), kontras warna maksimal:
+
+| Halaman | URL | Isi |
+| --- | --- | --- |
+| Masuk | `/masuk` | Login WhatsApp OTP — panel emas solid + formulir gelap solid |
+| Daftar | `/daftar` | Pilih peran (Pembeli/Penjual) → nomor → OTP → nama. Mendukung `?peran=penjual` |
+| Panel Admin | `/admin` | Gerbang OTP khusus admin + dasbor kurasi INLINE (noindex) |
+
+Prinsip desain halaman auth (permintaan pemilik): **tidak ada warna bertumpuk/
+transparan** — panel merek emas solid dengan teks hampir-hitam, kartu formulir
+`bg-card` solid, input `bg-muted` solid, kode demo dalam kotak emas penuh, error
+dalam kotak merah solid, badge status penuh warna.
+
 Alur bagi **pembeli** maupun **penjual** (satu pintu, tanpa password):
 
 ```
-Klik "Masuk" / "Jual Akun"
+Klik "Masuk" (→ /masuk) atau "Jual Akun" (→ /daftar?peran=penjual)
    └─> Masukkan nomor WhatsApp (08xx / 8xx / 62 8xx — dinormalisasi server)
          └─> Server generate OTP 6 digit (crypto-safe, kedaluwarsa 5 menit,
              rate limit 3 kode / 10 menit / nomor)
                ├─ [PRODUKSI] dikirim otomatis ke WhatsApp pengguna via
                │   WhatsApp Business API (set env WHATSAPP_API_URL + WHATSAPP_API_TOKEN)
-               └─ [DEMO] kode ditampilkan di dialog berlabel "Mode Demo" + tombol salin,
-                   plus tautan minta bantuan admin via wa.me
-                     └─> Masukkan kode (InputOTP 6 slot)
+               └─ [DEMO] kode ditampilkan di KOTAK EMAS SOLID berlabel "Mode Demo"
+                   + tombol salin, plus tautan minta bantuan admin via wa.me
+                     └─> Masukkan kode (6 slot solid, klik area mana pun untuk fokus)
                            └─> Sesi dibuat (cookie httpOnly `ra_session`, 30 hari)
-                                 ├─ Pengguna BARU -> pilih Nama + Peran:
-                                 │     • Pembeli — belanja bergaransi, riwayat pesanan
-                                 │     • Penjual — buka toko gratis, listing dikurasi admin
+                                 ├─ Pengguna BARU -> Nama + Peran (Pembeli / Penjual)
                                  └─> Selesai. Navbar berganti jadi menu akun.
 ```
 
@@ -86,7 +99,7 @@ Klik "Masuk" / "Jual Akun"
 - Kartu: platform, level, judul, follower, harga, avatar inisial + badge
   "Terverifikasi".
 - **Checkout**: klik "Lihat & Beli" → detail + poin escrow →
-  - belum login → dialog Masuk;
+  - belum login → tombol "Masuk untuk Membeli" mengarah ke halaman tunggal `/masuk`;
   - sudah login → pesanan dibuat (`ORD-XXXXXX`, status `MENUNGGU_PEMBAYARAN`) →
     tombol **Proses via WhatsApp Admin** (pesan terisi otomatis: kode pesanan + produk + nama).
 
@@ -95,10 +108,14 @@ Klik "Masuk" / "Jual Akun"
   (`MENUNGGU_PEMBAYARAN` / `DIPROSES` / `SELESAI` / `DIBATALKAN`).
 - Tombol "Bayar via WA" / "Tanya Admin" per pesanan.
 
-### 2.6 Panel Admin (kurasi) ⭐
-- Otomatis muncul di menu akun ketika login dengan nomor pemilik.
-- Filter tab: Perlu Kurasi / Tayang / Ditolak / Terjual / Semua.
+### 2.6 Panel Admin (kurasi) ⭐ — halaman `/admin`
+- **Halaman tunggal** `/admin` (noindex + `Disallow` di robots.txt): gerbang OTP
+  khusus administrator; nomor non-pemilik melihat kartu "Akses Ditolak" solid merah.
+- Setelah nomor pemilik terverifikasi, **Dasbor Kurasi tampil inline** di halaman
+  yang sama: 4 kartu statistik solid (Perlu Kurasi/Tayang/Terjual/Ditolak),
+  filter tab pill solid, dan kartu listing beraksi lengkap.
 - Aksi: **Setujui**, **Tolak**, **Tandai Terjual**, **Hapus**, **Chat Penjual**.
+- Tautan alternatif: menu akun → "Panel Admin (Halaman Penuh)".
 
 ### 2.7 Animasi penuh
 - framer-motion 12: hero per-kata stagger + blur, parallax floating cards, marquee
@@ -140,6 +157,9 @@ src/
 ├─ app/
 │  ├─ layout.tsx              # font, metadata SEO, viewport
 │  ├─ page.tsx                # SSR data + 6 blok JSON-LD + HomeClient
+│  ├─ masuk/page.tsx          # halaman tunggal login WhatsApp (index: ya)
+│  ├─ daftar/page.tsx         # halaman tunggal daftar pembeli/penjual (index: ya)
+│  ├─ admin/page.tsx          # panel admin — halaman tunggal (noindex)
 │  ├─ robots.ts / sitemap.ts / manifest.ts / icon.svg
 │  └─ api/
 │     ├─ auth/{request-otp,verify-otp,profile,me,logout}/route.ts
@@ -147,7 +167,8 @@ src/
 │     ├─ orders/route.ts          # GET milik pembeli · POST buat pesanan
 │     ├─ admin/listings/route.ts  # PATCH kurasi (approve/reject/sold/delete)
 │     └─ products|categories|stats|testimonials|faqs/route.ts
-├─ components/rajaakun/       # 20 komponen (hero, katalog, auth-dialog, dashboards, ...)
+├─ components/rajaakun/       # 20+ komponen (hero, katalog, auth-shell, login/register/
+│                             #  admin-page, dashboards solid, navbar, footer, ...)
 ├─ lib/
 │  ├─ auth.ts                 # OTP, sesi, normalisasi WA, ADMIN_PHONE, guard
 │  ├─ marketplace.ts          # SITE config (kontak, PT, sosmed) + DTO + format anti-hydration

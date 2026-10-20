@@ -172,3 +172,32 @@ Stage Summary:
   7) Branding internal tertanam: PT Digital Bisnis Manajemen (digiman.id), support system PT Top Konsultan Internasional (topkonsultan.web.id), founder Gugun Gunara / Muhammad Lutfi Azmi / prabudanling / santri angon + 6 sosmed (entity SEO via JSON-LD sameAs + rel=me + meta),
   8) README.md lengkap 8 bab + worklog berkelanjutan.
 - Mode produksi WhatsApp API tinggal set env WHATSAPP_API_URL + WHATSAPP_API_TOKEN (kode OTP otomatis berhenti tampil di UI dan dikirim via WA).
+
+---
+Task ID: 9 & 10
+Agent: Z.ai Code (main orchestrator)
+Task: Halaman tunggal login/daftar/panel admin — SOLID, kontras maksimal, tanpa transparansi
+
+Work Log:
+- Permintaan pemilik: login admin dashboard, login, dan daftar harus HALAMAN TUNGGAL (bukan dialog/Sheet), jangan transparan, tidak ada warna tumpang tindih yang mengaburkan, semua jelas.
+- BARU src/components/rajaakun/auth-shell.tsx ('use client'): AuthTopBar (bar solid + link silang), AuthBrandPanel (panel emas gradient SOLID from-amber-400 via-yellow-500 to-amber-600 + teks zinc-950 — kontras AAA; list benefit; kotak support WA hitam solid), StepTitle (subtitle ReactNode), StepDots (progres solid), PhoneField (input raw SOLID bg-muted border-2 — menjamin tak ada konflik bg-transparent milik ui/input), DevCodeBox (kotak KODE DEMO bg-primary SOLID + tombol salin hitam + link Hubungi Admin), OtpSlots (6 slot solid bg-muted; input nyata opacity-0 menutupi seluruh area supaya klik/tap fokus + mobile keyboard muncul; autoComplete one-time-code), ErrorBox (bg-destructive SOLID teks putih bold), RoleCards (kartu peran solid: terpilih = border-primary bg-accent), formatCountdown.
+- BARU role-badges.tsx: ROLE_BADGE_LABELS (BUYER emerald-500, SELLER primary, ADMIN amber-400 — semua badge SOLID tanpa alpha) + Icon ref; dipakai login-page, admin-page, account-menu.
+- BARU /masuk (app/masuk/page.tsx + login-page.tsx): 3 langkah (phone -> OTP -> profile utk user baru); status sesi via fetchMe; kartu "Kamu sudah masuk!" saat sesi aktif (showLoggedIn = user && step!=='profile' — fix bug setUser menimpa langkah profil user baru); sukses existing -> toast + router.replace('/'); footer solid; link ke /daftar & /admin.
+- BARU /daftar (app/daftar/page.tsx + register-page.tsx): 4 langkah (peran -> phone -> OTP -> nama); pra-pilih peran dari ?peran=penjual (window.location.search di useEffect, tanpa useSearchParams); panel emas berubah konten sesuai peran; sukses -> toast + replace('/').
+- BARU /admin (app/admin/page.tsx + admin-page.tsx): metadata noindex/nofollow/nocache; strip emas identitas; gerbang OTP (nomor pemilik 6281316516524 auto-ADMIN via lib/auth); kartu "Akses Ditolak" solid merah utk non-admin (+ Keluar & Coba Nomor Lain / Kembali ke Beranda); DASBOR KURASI INLINE: 4 StatCard solid (Perlu Kurasi amber/Tayang emerald/Terjual zinc/Ditolak red + bar warna), filter tab pill SOLID (aktif bg-primary text-primary-foreground) dgn badge jumlah, kartu listing solid + badge status SOLID (PENDING amber-400/APPROVED emerald-500/REJECTED red-500/SOLD zinc-400), aksi Setujui/Tolak/Tandai Terjual/Hapus/Chat Penjual, data = GET /api/listings?admin=1 (semua) + filter client-side; toast konfirmasi tiap aksi.
+- Navbar: Masuk = Link /masuk (LoginButton kini href-based); "Jual Akun" -> router.push('/daftar?peran=penjual') saat belum login; MobileAccountCard (belum login) = Link /masuk.
+- account-menu: "Panel Admin (Halaman Penuh)" -> DropdownMenuItem asChild Link /admin; badge peran solid dari ROLE_BADGE_LABELS.
+- seller-listings-section: openAuth diganti router.push — "Masuk untuk Membeli" -> /masuk; CTA "Daftar Penjual via WhatsApp" -> /daftar?peran=penjual.
+- home-client: AuthDialog & AdminPanelSheet DIHAPUS dari mount (login & admin sepenuhnya halaman tunggal); dashboard sheet penjual/pembeli tetap.
+- dashboard-seller/dashboard-buyer: SheetContent glass -> bg-card SOLID (border-l-2).
+- SEO: sitemap + /masuk (0.7) & /daftar (0.8), /admin sengaja tidak didaftarkan; robots.txt tambah Disallow: /admin; metadata ketiga halaman (canonical, description) — /admin noindex.
+- README.md diperbarui (bab 2.2 tabel 3 halaman + prinsip desain solid, 2.4 checkout -> /masuk, 2.6 panel admin /admin inline, struktur direktori).
+- VERIFIKASI BROWSER (agent-browser): /masuk desktop+mobile render solid sempurna; alur login 08127774321 -> OTP (kotak emas kode) -> kartu "Kamu sudah masuk"; /daftar alur penuh daftar Penjual (081298765432, "Rina Kartika") -> redirect beranda + navbar akun tampil; /admin dgn sesi non-admin = kartu Akses Ditolak; login pemilik -> dasbor inline; aksi Tandai Terjual sukses (badge tab Terjual=1); beranda: Masuk=link /masuk, Jual Akun -> /daftar?peran=penjual (Penjual terpilih otomatis), "Masuk untuk Membeli" -> /masuk; menu akun -> Panel Admin halaman penuh; sheet Dashboard Penjual solid terbuka; robots.txt (Disallow /admin) & sitemap.xml (2 URL baru) OK; <meta robots noindex> di /admin OK.
+- Fix selama verifikasi: (1) OtpSlots input sr-only -> input opacity-0 overlay area slot (tap-to-focus); (2) bug kartu "sudah masuk" menimpa langkah profil user baru di /masuk; (3) StepTitle subtitle ReactNode (tsc).
+- ESLint 0 error, tsc 0 error (folder proyek), dev.log bersih, console browser 0 error / 0 hydration.
+
+Stage Summary:
+- TIGA HALAMAN TUNGGAL AKTIF: /masuk, /daftar (+?peran=penjual), /admin — semuanya SOLID tanpa transparansi, kontras emas-hitam / putih-merah maksimal, footer sticky, mobile responsif.
+- Dialog auth & Sheet admin pensiun dari beranda; semua pintu (navbar, menu mobile, menu akun, CTA beli, CTA penjual) kini mengarah ke halaman tunggal.
+- Panel admin = gerbang OTP + dasbor kurasi inline dalam satu halaman; non-admin melihat kartu penolakan solid.
+- SEO: /masuk & /daftar terindeks + masuk sitemap; /admin noindex + Disallow robots.

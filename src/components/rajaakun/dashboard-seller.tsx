@@ -147,7 +147,7 @@ export function SellerDashboardSheet({ categories }: { categories: CategoryDTO[]
 
   return (
     <Sheet open={open} onOpenChange={(o) => !o && closeDashboard()}>
-      <SheetContent side="right" className="glass w-full overflow-y-auto border-l border-border sm:max-w-lg">
+      <SheetContent side="right" className="w-full overflow-y-auto border-l-2 border-border bg-card sm:max-w-lg">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 text-xl font-extrabold">
             <Store className="h-5 w-5 text-primary" aria-hidden="true" />

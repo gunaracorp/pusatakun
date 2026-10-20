@@ -63,7 +63,7 @@ export function BuyerDashboardSheet() {
 
   return (
     <Sheet open={open} onOpenChange={(o) => !o && closeDashboard()}>
-      <SheetContent side="right" className="glass w-full overflow-y-auto border-l border-border sm:max-w-md">
+      <SheetContent side="right" className="w-full overflow-y-auto border-l-2 border-border bg-card sm:max-w-md">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2 text-xl font-extrabold">
             <ShoppingBag className="h-5 w-5 text-primary" aria-hidden="true" />

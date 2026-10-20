@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import {
   AnimatePresence,
   motion,
@@ -80,6 +81,7 @@ function BrandMark() {
 }
 
 export function Navbar() {
+  const router = useRouter()
   const { scrollY, scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 140,
@@ -88,7 +90,7 @@ export function Navbar() {
   })
   const [scrolled, setScrolled] = useState(false)
   const [promoVisible, setPromoVisible] = useState(true)
-  const { user, openAuth, openDashboard } = useAuthStore()
+  const { user, openDashboard } = useAuthStore()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 24)
@@ -96,9 +98,9 @@ export function Navbar() {
   })
 
   function goToSeller() {
-    // Belum login -> dialog daftar penjual; sudah -> dashboard penjual
+    // Sudah login -> dashboard penjual; belum -> halaman tunggal daftar (peran penjual)
     if (user) openDashboard('seller')
-    else openAuth('seller')
+    else router.push('/daftar?peran=penjual')
   }
 
   return (
@@ -176,7 +178,7 @@ export function Navbar() {
             {user ? (
               <AccountMenu />
             ) : (
-              <LoginButton onClick={() => openAuth('login')} className="h-11 gap-2 rounded-full border-primary/50 px-4 font-semibold transition-transform hover:scale-105 hover:bg-primary/10 sm:px-5" />
+              <LoginButton className="h-11 gap-2 rounded-full border-primary/50 px-4 font-semibold transition-transform hover:scale-105 hover:bg-primary/10 sm:px-5" />
             )}
 
             <Button

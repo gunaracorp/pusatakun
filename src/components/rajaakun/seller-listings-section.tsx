@@ -27,11 +27,13 @@ import {
   orderWaLink,
   type SellerListingDTO,
 } from '@/lib/marketplace'
+import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth-store'
 import { Reveal, SectionHeading } from './motion-primitives'
 
 export function SellerListingsSection() {
-  const { user, openAuth } = useAuthStore()
+  const { user } = useAuthStore()
+  const router = useRouter()
   const { toast } = useToast()
 
   const [listings, setListings] = useState<SellerListingDTO[]>([])
@@ -72,7 +74,7 @@ export function SellerListingsSection() {
   async function handleBuy(listing: SellerListingDTO) {
     if (!user) {
       setDetailOpen(false)
-      openAuth('login')
+      router.push('/masuk')
       toast({
         title: 'Masuk dulu ya',
         description: 'Login pakai WhatsApp untuk memesan akun ini — cepat, 20 detik.',
@@ -330,7 +332,8 @@ export function SellerListingsSection() {
 
 /** CTA penjual — dipisah agar store diakses di komponen klien kecil. */
 export function SellerCtaButtons() {
-  const { user, openAuth, openDashboard } = useAuthStore()
+  const { user, openDashboard } = useAuthStore()
+  const router = useRouter()
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
       {user ? (
@@ -339,7 +342,10 @@ export function SellerCtaButtons() {
           Buka Dashboard Penjual
         </Button>
       ) : (
-        <Button onClick={() => openAuth('seller')} className="h-12 rounded-full px-6 font-bold">
+        <Button
+          onClick={() => router.push('/daftar?peran=penjual')}
+          className="h-12 rounded-full px-6 font-bold"
+        >
           <Crown className="mr-1.5 h-5 w-5" aria-hidden="true" />
           Daftar Penjual via WhatsApp
         </Button>

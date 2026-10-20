@@ -6,11 +6,9 @@ import { useCatalogStore } from '@/store/catalog-store'
 import { useAuthStore } from '@/store/auth-store'
 import { ActivityTicker } from './activity-ticker'
 import { BackToTop } from './back-to-top'
-import { AuthDialog } from './auth-dialog'
 import { Catalog } from './catalog'
 import { CategoriesSection } from './categories-section'
 import { CtaSection } from './cta-section'
-import { AdminPanelSheet } from './admin-panel'
 import { BuyerDashboardSheet } from './dashboard-buyer'
 import { SellerDashboardSheet } from './dashboard-seller'
 import { FaqSection } from './faq-section'
@@ -102,11 +100,9 @@ export function HomeClient({
         onOpenChange={setDetailOpen}
       />
 
-      {/* Auth & dashboard (dikontrol via auth-store) */}
-      <AuthDialog />
+      {/* Dashboard (dikontrol via auth-store); login & panel admin = halaman tunggal /masuk & /admin */}
       <SellerDashboardSheet categories={categories} />
       <BuyerDashboardSheet />
-      <AdminPanelSheet />
     </div>
   )
 }
