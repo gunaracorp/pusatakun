@@ -1,13 +1,18 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { CategoryDTO, FaqDTO, ProductDTO, StatsDTO, TestimonialDTO } from '@/lib/marketplace'
 import { useCatalogStore } from '@/store/catalog-store'
+import { useAuthStore } from '@/store/auth-store'
 import { ActivityTicker } from './activity-ticker'
 import { BackToTop } from './back-to-top'
+import { AuthDialog } from './auth-dialog'
 import { Catalog } from './catalog'
 import { CategoriesSection } from './categories-section'
 import { CtaSection } from './cta-section'
+import { AdminPanelSheet } from './admin-panel'
+import { BuyerDashboardSheet } from './dashboard-buyer'
+import { SellerDashboardSheet } from './dashboard-seller'
 import { FaqSection } from './faq-section'
 import { FloatingWhatsApp } from './floating-whatsapp'
 import { Footer } from './footer'
@@ -15,6 +20,7 @@ import { Hero } from './hero'
 import { HowItWorks } from './how-it-works'
 import { Navbar } from './navbar'
 import { ProductDetailSheet } from './product-detail-sheet'
+import { SellerListingsSection } from './seller-listings-section'
 import { TestimonialsSection } from './testimonials'
 import { TrustMarquee } from './trust-marquee'
 import { WhyUs } from './why-us'
@@ -36,6 +42,12 @@ export function HomeClient({
 }) {
   const [detailProduct, setDetailProduct] = useState<ProductDTO | null>(null)
   const [detailOpen, setDetailOpen] = useState(false)
+  const fetchMe = useAuthStore((s) => s.fetchMe)
+
+  // Sinkronkan sesi login (cookie httpOnly) setelah mount — render awal tetap deterministik.
+  useEffect(() => {
+    void fetchMe()
+  }, [fetchMe])
 
   const openDetail = useCallback((product: ProductDTO) => {
     setDetailProduct(product)
@@ -69,6 +81,7 @@ export function HomeClient({
           initialTotal={initialTotal}
           onOpenDetail={openDetail}
         />
+        <SellerListingsSection />
         <WhyUs />
         <HowItWorks />
         <TestimonialsSection testimonials={testimonials} />
@@ -88,6 +101,12 @@ export function HomeClient({
         open={detailOpen}
         onOpenChange={setDetailOpen}
       />
+
+      {/* Auth & dashboard (dikontrol via auth-store) */}
+      <AuthDialog />
+      <SellerDashboardSheet categories={categories} />
+      <BuyerDashboardSheet />
+      <AdminPanelSheet />
     </div>
   )
 }

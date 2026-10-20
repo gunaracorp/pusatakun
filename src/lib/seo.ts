@@ -62,6 +62,20 @@ const META_KEYWORDS = [
   'jual akun discord',
   'jual akun linkedin',
   'jual akun gmail',
+  'login whatsapp',
+  'daftar penjual akun',
+  'cara jadi penjual akun',
+  'dashboard penjual akun',
+  'marketplace akun pt digital bisnis manajemen',
+  // Entitas pendiri & ekosistem (entity SEO — branding internal)
+  'gugun gunara',
+  'muhammad lutfi azmi',
+  'prabudanling',
+  'santri angon',
+  'pt digital bisnis manajemen',
+  'digiman id',
+  'pt top konsultan internasional',
+  'topkonsultan web id',
 ] as const
 
 // ============ Metadata utama (route `/`) ============
@@ -76,9 +90,12 @@ export function buildHomeMetadata(): Metadata {
     description: META_DESCRIPTION,
     keywords: [...META_KEYWORDS],
     applicationName: SITE.name,
-    authors: [{ name: SITE.name, url: SITE_URL }],
-    creator: SITE.name,
-    publisher: SITE.name,
+    authors: [
+      { name: SITE.founder, url: SITE_URL },
+      { name: SITE.founderAlias, url: SITE_URL },
+    ],
+    creator: SITE.founder,
+    publisher: SITE.company,
     category: 'ecommerce',
     alternates: {
       canonical: '/',
@@ -148,21 +165,32 @@ export function organizationJsonLd(): Record<string, unknown> {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: SITE.name,
+    alternateName: ['RajaAkun', 'Raja Akun Indonesia'],
     url: SITE_URL,
     logo: `${SITE_URL}/icon.svg`,
+    email: SITE.email,
     description:
       'Raja Akun (rajaakun.web.id) — marketplace jual beli akun media sosial, game, dan ' +
       'streaming terlengkap & terpercaya se-Indonesia. Akun murah bergaransi, proses instan, ' +
       'support 24/7.',
     foundingDate: '2021',
+    founder: personRef(),
+    parentOrganization: {
+      '@type': 'Organization',
+      name: SITE.company,
+      url: SITE.companySite,
+    },
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Jakarta',
+      streetAddress: SITE.address.replace(', Indonesia', ''),
+      addressLocality: 'Jakarta Pusat',
+      addressRegion: 'DKI Jakarta',
       addressCountry: 'ID',
     },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: telFormat(SITE.whatsapp),
+      email: SITE.email,
       contactType: 'customer service',
       availableLanguage: ['id'],
       hoursAvailable: {
@@ -180,7 +208,44 @@ export function organizationJsonLd(): Record<string, unknown> {
         closes: '23:59',
       },
     },
-    sameAs: [],
+    sameAs: [...SITE.socials.map((s) => s.url), SITE.companySite, SITE.companySupportSite],
+  }
+}
+
+/** Referensi founder (dipakai Organization & Person). */
+function personRef(): Record<string, unknown> {
+  return {
+    '@type': 'Person',
+    name: SITE.founder,
+    alternateName: [SITE.founderAlias, ...SITE.founderHandles],
+    url: SITE_URL,
+    jobTitle: 'Founder & Chief Architect',
+    worksFor: { '@type': 'Organization', name: SITE.company, url: SITE.companySite },
+    sameAs: SITE.socials.map((s) => s.url),
+  }
+}
+
+/** JSON-LD Person untuk entitas founder (entity SEO: naikkan nama di Google). */
+export function personJsonLd(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    ...personRef(),
+    description:
+      `${SITE.founder} (${SITE.founderAlias}) — founder Raja Akun, arsitek digital di balik ` +
+      `${SITE.company} dan ekosistem ${SITE.companySupport}. Dikenal juga sebagai ` +
+      `${SITE.founderHandles.join(' & ')}.`,
+    knowsAbout: [
+      'digital business',
+      'marketplace engineering',
+      'enterprise architecture',
+      'problem solving',
+      'digital transformation',
+    ],
+    memberOf: {
+      '@type': 'Organization',
+      name: SITE.companySupport,
+      url: SITE.companySupportSite,
+    },
   }
 }
 

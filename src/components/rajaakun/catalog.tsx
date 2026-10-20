@@ -23,6 +23,7 @@ import {
   type SortOption,
 } from '@/lib/marketplace'
 import { useCatalogStore } from '@/store/catalog-store'
+import { waLink } from '@/lib/marketplace'
 import { EASE, SectionHeading } from './motion-primitives'
 import { ProductCard } from './product-card'
 
@@ -441,7 +442,7 @@ export function Catalog({
               </Button>
               <Button asChild className="rounded-xl">
                 <a
-                  href="https://wa.me/6281234567890?text=Halo%20Admin%20Raja%20Akun!%20Akun%20yang%20saya%20cari%20tidak%20ada%20di%20katalog.%20Bisa%20request%3F"
+                  href={waLink('Halo Admin Raja Akun! Akun yang saya cari tidak ada di katalog. Bisa request?')}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

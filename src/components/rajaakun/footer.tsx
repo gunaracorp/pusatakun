@@ -1,33 +1,16 @@
 'use client'
 
 import { useSyncExternalStore } from 'react'
-import { Clock, Crown, Instagram, Mail, MapPin, MessageCircle } from 'lucide-react'
+import { ArrowUpRight, Clock, Crown, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { SITE, waLink, type CategoryDTO } from '@/lib/marketplace'
 
 const NAV_LINKS = [
   { label: 'Katalog', href: '#katalog' },
+  { label: 'Penjual Terverifikasi', href: '#studio-penjual' },
   { label: 'Cara Kerja', href: '#cara-kerja' },
   { label: 'Testimoni', href: '#testimoni' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Keunggulan', href: '#keunggulan' },
-]
-
-const SOCIALS = [
-  {
-    label: 'Instagram Raja Akun',
-    href: `https://instagram.com/${SITE.instagramHandle.replace('@', '')}`,
-    icon: Instagram,
-  },
-  {
-    label: 'WhatsApp Admin',
-    href: waLink('Halo Admin Raja Akun!'),
-    icon: MessageCircle,
-  },
-  {
-    label: 'Email Support',
-    href: `mailto:${SITE.email}`,
-    icon: Mail,
-  },
 ]
 
 // ---- Hydration-safe current year (no setState-in-effect) ----
@@ -67,20 +50,40 @@ export function Footer({ categories }: { categories: CategoryDTO[] }) {
               Marketplace jual beli akun media sosial, game & streaming terlengkap
               se-Indonesia. Garansi penuh, pengiriman instan, support 24/7.
             </p>
-            <div className="mt-5 flex items-center gap-2">
-              {SOCIALS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="glass flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground transition-all hover:scale-105 hover:text-primary"
-                >
-                  <social.icon className="h-4.5 w-4.5" aria-hidden="true" />
-                </a>
-              ))}
-            </div>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Sebuah layanan dari{' '}
+              <a
+                href={SITE.companySite}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-foreground/80 transition-colors hover:text-primary"
+              >
+                {SITE.company}
+              </a>
+            </p>
+
+            {/* Sosial media resmi (entity SEO: rel=me) */}
+            <nav aria-label="Sosial media resmi" className="mt-5">
+              <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/70">
+                Sosial Media
+              </h3>
+              <ul className="mt-2.5 flex flex-wrap gap-1.5">
+                {SITE.socials.map((social) => (
+                  <li key={social.id}>
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="me noopener noreferrer"
+                      aria-label={`${social.label} — ${social.handle}`}
+                      className="inline-flex min-h-[32px] items-center gap-1 rounded-full border border-border/70 px-2.5 text-[11px] font-semibold text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+                    >
+                      {social.label}
+                      <ArrowUpRight className="h-3 w-3 opacity-60" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           {/* Popular categories */}
@@ -152,18 +155,34 @@ export function Footer({ categories }: { categories: CategoryDTO[] }) {
                 <Clock className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
                 Online 24/7
               </li>
-              <li className="flex items-center gap-2.5">
-                <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                Jakarta, Indonesia
+              <li className="flex items-start gap-2.5">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                <span className="leading-relaxed">{SITE.address}</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {year} Raja Akun — {SITE.domain}. Seluruh hak cipta.</p>
-          <p className="font-semibold text-primary/80">{SITE.tagline}</p>
+        <div className="mt-12 space-y-3 border-t border-border pt-6">
+          <div className="flex flex-col items-center justify-between gap-3 text-xs text-muted-foreground sm:flex-row">
+            <p>© {year} Raja Akun — {SITE.domain} · {SITE.company}</p>
+            <p className="font-semibold text-primary/80">{SITE.tagline}</p>
+          </div>
+          {/* Baris kredit sistem (branding internal — halus & crawlable) */}
+          <p className="text-center text-[11px] leading-relaxed text-muted-foreground/60">
+            Support system oleh{' '}
+            <a
+              href={SITE.companySupportSite}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-border underline-offset-2 transition-colors hover:text-muted-foreground"
+            >
+              {SITE.companySupport}
+            </a>{' '}
+            ({SITE.companySupportSite.replace('https://', '')}) · Sistem dikurangi {SITE.founder} —{' '}
+            {SITE.founderAlias} · {SITE.founderHandles.join(' & ')}
+          </p>
         </div>
       </div>
     </footer>

@@ -118,3 +118,57 @@ Work Log:
 
 Stage Summary:
 - RAJA AKUN (rajaakun.web.id) SELESAI & TERVERIFIKASI BROWSER: 14 kategori, 47 produk, full SEO (metadata + JSON-LD + sitemap + robots + manifest + OG image), full animasi (framer-motion, marquee, parallax, counters, flash countdown, activity ticker), filter katalog penuh, mobile responsif, footer sticky, aksesibilitas ARIA
+
+---
+Task ID: 6 & 7
+Agent: Z.ai Code (main orchestrator)
+Task: Login WhatsApp OTP (pembeli & penjual) + kurasi admin + branding & SEO entitas pendiri + perbaikan hydration report pengguna
+
+Work Log:
+- User melaporkan hydration error (file upload). Analisis root cause: aria-controls radix `radix-_R_*` server vs client BERBEDA secara sistematis (Sheet trigger, Select katalog, Accordion FAQ) = pohon bergeser antara HTML lama & JS baru (artefak HTML cache/dev hot-reload saat sesi sebelumnya masih mengedit file). Verifikasi ulang fresh-load di Task 8.
+- prisma/schema.prisma: +model User (phone UNIQUE, role BUYER|SELLER|ADMIN), OtpCode (code 6 digit, expiresAt, used, index phone+createdAt), Session (id=token, expiresAt), Listing (code UNIQUE RA-XXXX, sellerId FK, platform/title/description/price/followers/level, status PENDING|APPROVED|REJECTED|SOLD, adminNote), Order (code UNIQUE ORD-XXXX, buyerId FK, productId?, productName, amount, quantity, status MENUNGGU_PEMBAYARAN|DIPROSES|SELESAI|DIBATALKAN). `bun run db:push` sukses (client regen).
+- src/lib/auth.ts: normalizePhone (08/8/62 -> 628, regex ^628\d{8,11}$), generateOtpCode crypto, createOtp (invalidasi OTP lama, TTL 5 mnt), verifyOtp (sekali pakai + cek expiry), sendOtpViaWhatsapp (WHATSAPP_API_URL+WHATSAPP_API_TOKEN -> produksi; tanpa env = mode demo), upsertUserByPhone (auto-ADMIN utk 6281316516524), createSession (token random 64 hex, 30 hari), sessionCookieOptions (httpOnly/sameSite lax/secure prod), getSessionUser, requireUser guard, generateRefCode (RA-/ORD-).
+- API baru (semua force-dynamic): POST /api/auth/request-otp (rate limit 3/10mnt, balikin devCode saat demo + isNew), POST /api/auth/verify-otp (set cookie ra_session), POST /api/auth/profile (nama+role, ADMIN terkunci), GET /api/auth/me, POST /api/auth/logout; /api/listings GET (publik=APPROVED / ?mine=1 / ?admin=1&status=) + POST (buat listing PENDING, promosi otomatis BUYER->SELLER, kuota 50, validasi harga 5rb-500jt); /api/orders GET+POST (anti-spam 15 pesanan terbuka); PATCH /api/admin/listings (approve/reject/mark-sold/delete, ADMIN only).
+- src/lib/marketplace.ts SITE di-update: whatsapp 6281316516524 (+62 813-1651-6524, sekaligus ADMIN_PHONE), email rajaakun2026@gmail.com, company PT Digital Bisnis Manajemen + digiman.id, companySupport PT Top Konsultan Internasional + topkonsultan.web.id, address "Kantor PHI Kwitang, Kwitang, Senen, Jakarta Pusat, DKI Jakarta" (diambil dari situs topkonsultan), founder Gugun Gunara / alias Muhammad Lutfi Azmi / handles prabudanling & santri angon, socials[6] (fb bossdanling, x gunzz_krenzz, ig prabudanling, tiktok gunaracorp, threads prabudanling, reddit prabudanling). +orderWaLink, +listingWaLink, +DTO SellerListingDTO/OrderDTO/SellerStatsDTO + label status + initialsOf.
+- src/lib/seo.ts: keywords +13 (login whatsapp, daftar penjual, nama pendiri, PT, dst.), authors Gugun Gunara & Muhammad Lutfi Azmi, creator/publisher founder/company; organizationJsonLd +alternateName+founder+parentOrganization+address lengkap+email+sameAs 8 URL; personJsonLd() BARU (Person + knowsAbout + memberOf); page.tsx menambah blok JSON-LD Person (6 blok total).
+- UI BARU: store/auth-store.ts (user/status idle|loading|ready + authOpen/authMode/dashboard); components/rajaakun/auth-dialog.tsx (3 langkah: phone -> OTP InputOTP 6 slot dgn countdown 5:00 + resend 60s + kotak "Mode Demo" kode & salin + link WA admin -> profile: nama + kartu peran Pembeli/Penjual; reset penuh saat dialog tutup, countdown via interval yang hanya jalan saat open = hydration-safe); account-menu.tsx (AccountMenu dropdown + LoginButton + MobileAccountCard, badge peran); dashboard-seller.tsx (Sheet: 4 stat, form daftarkan akun w/ Select platform dari Category, preview formatIDR, daftar listing + badge status + catatan admin + tanya admin, info program komisi); dashboard-buyer.tsx (Sheet riwayat pesanan + tombol Bayar via WA / Tanya Admin, tanggal format manual anti-hydration); admin-panel.tsx (Sheet kurasi: tab filter status, Setujui/Tolak/Tandai Terjual/Hapus/Chat Penjual); seller-listings-section.tsx (section publik #studio-penjual: fetch /api/listings, grid kartu penjual terverifikasi, Dialog detail + escrow points, Beli -> belum login openAuth / sudah login POST /api/orders -> layar sukses kode pesanan + tombol WA admin; empty state CTA jadi penjual pertama).
+- Integrasi: navbar (tombol "Jual Akun" desktop + mobile sheet, LoginButton/AccountMenu swap by user state — render awal deterministik idle); home-client (fetchMe on mount, mount AuthDialog + 3 dashboard sheets + SellerListingsSection antara Katalog & WhyUs); footer ditulis ulang (kontak WA/email/alamat PT, baris "Sebuah layanan dari PT Digital Bisnis Manajemen", pill sosmed 6 platform rel="me", baris kredit support system + founder — halus tapi crawlable).
+- Fix: dashboard-seller import Store; catalog.tsx nomor WA hardcoded 6281234567890 -> waLink(); account-menu onClick openAuth arrow fn; mobile SheetContent +overflow-y-auto.
+- Data: prisma/scripts/add-faq.ts (+2 FAQ cara daftar pembeli/penjual, total 10; seed.ts disinkronkan); prisma/scripts/polish-samples.ts (penjual contoh "Raka Pratama" + 3 listing APPROVED realistis: IG 5K kuliner, TikTok 18K, MLBB Mythic).
+- README.md DITULIS ULANG LENGKAP (8 bab: identitas & kepemilikan + tabel sosmed, fitur + diagram alur OTP, arsitektur, API reference, cara jalan + env produksi WA + checklist produksi, keamanan, kredit, worklog).
+- E2E curl sukses: OTP login (6281239991001 -> BUYER), profile SELLER, create listing RA-W5E8PF PENDING, login 6281316516524 otomatis ADMIN, approve -> tayang di /api/listings publik, order ORD-57MRB4. ESLint 0 error, tsc 0 error.
+
+Stage Summary:
+- FITUR LOGIN WHATSAPP SELESAI E2E: pembeli & penjual satu pintu OTP, role selection, seller dashboard w/ kurasi admin, buyer orders w/ WA checkout, panel admin khusus nomor pemilik (+62 813-1651-6524).
+- BRANDING TERTANAM DI SISTEM (sesuai permintaan "sembunyikan tapi ada"): SITE config, meta keywords/authors, JSON-LD Organization+Person (sameAs 6 sosmed + digiman.id + topkonsultan.web.id), footer kredit, README. Tidak mencolok di permukaan halaman.
+- Kontak resmi aktif: WA +62 813-1651-6524 (admin & super admin), email rajaakun2026@gmail.com, alamat PT = alamat topkonsultan.web.id (Kantor PHI Kwitang, Senen, Jakarta Pusat).
+- Menunggu verifikasi browser fresh-load (Task 8) utk konfirmasi hydration bersih.
+
+---
+Task ID: 8
+Agent: Z.ai Code (main orchestrator)
+Task: Verifikasi end-to-end Agent Browser (desktop + mobile) & finalisasi
+
+Work Log:
+- Root cause hydration report user dikonfirmasi: fresh-load desktop & mobile = 0 hydration error di console. ID radix `radix-_R_*` pada laporan berasal dari HTML lama (cache/hot-reload saat sesi sebelumnya mengedit file) yang dihidrasi dengan pohon JS baru — bukan bug kode. Halaman sekarang bersih.
+- Alur login WhatsApp OTP via browser UI: klik Masuk -> isi 0812-7777-4321 -> kode demo tampil (kotak Mode Demo + tombol salin) -> InputOTP 6 digit -> Langkah "Lengkapi Profil" (nama + radio peran Pembeli/Penjual) -> navbar berubah jadi AccountMenu. Sempurna.
+- Dashboard Penjual (user "Budi Santoso"): stats 1/1/0/0, form Daftarkan Akun (Select platform YouTube, judul, follower, harga Rp 875.000, deskripsi) -> submit -> listing "RA-XWSA4X · KURASI ADMIN" muncul di daftar + toast. Sempurna.
+- Login nomor pemilik 6281316516524 -> otomatis role ADMIN -> menu "Panel Admin (Kurasi)" muncul -> tab Perlu Kurasi menampilkan listing Budi -> klik Setujui -> antrean kosong -> listing langsung TAYANG di section publik.
+- Section #studio-penjual: 4 kartu penjual terverifikasi (IG 5K, TikTok 18K, MLBB Mythic milik "Raka Pratama" + YouTube milik "Budi Santoso") dgn badge platform/level/terverifikasi.
+- Checkout pembeli: Lihat & Beli -> dialog detail (deskripsi, escrow points, harga) -> Pesan Sekarang -> sukses "Pesanan Tercatat! ORD-FAA2BG" + tombol Proses via WhatsApp Admin -> Pesanan Saya menampilkan ORD-FAA2BG dgn status Menunggu Pembayaran + tombol Bayar via WA. Sempurna.
+- Footer: "Sebuah layanan dari PT Digital Bisnis Manajemen", pill sosmed 6 platform (rel=me), WA +62 813-1651-6524, rajaakun2026@gmail.com, alamat Kantor PHI Kwitang, baris kredit support-system founder (halus, crawlable). Sticky footer gap=0 (footerBottom==viewport).
+- Mobile 390x844: katalog, filter chips, kartu produk, menu mobile berisi MobileAccountCard (badge ADMIN) — semua pas tanpa overflow.
+- SEO: HTML berisi 6 blok JSON-LD — Organization(+founder/parentOrganization/sameAs 8 URL), Person "Gugun Gunara" (alternateName: Muhammad Lutfi Azmi, prabudanling, santri angon), WebSite+SearchAction, BreadcrumbList, FAQPage 10 Q&A, ItemList 24 produk; /sitemap.xml 200, /robots.txt 200.
+- ESLint: 0 error. tsc --noEmit: 0 error. dev.log: bersih (tanpa error/hydration).
+
+Stage Summary:
+- RAJA AKUN (rajaakun.web.id) versi baru TERVERIFIKASI PENUH via browser:
+  1) Login WhatsApp OTP untuk pembeli & penjual (satu pintu, role selection, auto-admin utk nomor pemilik),
+  2) Dashboard penjual (daftar akun -> kurasi admin -> tayang),
+  3) Rak Penjual Terverifikasi publik + checkout pesanan ORD tercatat + lanjut WA,
+  4) Dashboard pembeli (riwayat pesanan),
+  5) Panel admin kurasi (approve/reject/sold/delete),
+  6) Kontak resmi aktif: WA +6281316516524, email rajaakun2026@gmail.com,
+  7) Branding internal tertanam: PT Digital Bisnis Manajemen (digiman.id), support system PT Top Konsultan Internasional (topkonsultan.web.id), founder Gugun Gunara / Muhammad Lutfi Azmi / prabudanling / santri angon + 6 sosmed (entity SEO via JSON-LD sameAs + rel=me + meta),
+  8) README.md lengkap 8 bab + worklog berkelanjutan.
+- Mode produksi WhatsApp API tinggal set env WHATSAPP_API_URL + WHATSAPP_API_TOKEN (kode OTP otomatis berhenti tampil di UI dan dikirim via WA).

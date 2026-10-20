@@ -3,6 +3,7 @@ import {
   breadcrumbJsonLd,
   faqJsonLd,
   organizationJsonLd,
+  personJsonLd,
   productListJsonLd,
   websiteJsonLd,
 } from '@/lib/seo'
@@ -102,6 +103,7 @@ export default async function Page() {
 
   const jsonLdBlocks = [
     organizationJsonLd(),
+    personJsonLd(),
     websiteJsonLd(),
     breadcrumbJsonLd(),
     faqJsonLd(faqs),

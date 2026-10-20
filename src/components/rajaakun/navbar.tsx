@@ -8,7 +8,7 @@ import {
   useScroll,
   useSpring,
 } from 'framer-motion'
-import { ArrowRight, Crown, Menu, MessageCircle } from 'lucide-react'
+import { ArrowRight, Crown, Menu, MessageCircle, Store } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Sheet,
@@ -21,6 +21,8 @@ import {
 } from '@/components/ui/sheet'
 import { SITE, waLink } from '@/lib/marketplace'
 import { cn } from '@/lib/utils'
+import { useAuthStore } from '@/store/auth-store'
+import { AccountMenu, LoginButton, MobileAccountCard } from './account-menu'
 import { EASE } from './motion-primitives'
 
 const NAV_LINKS = [
@@ -86,11 +88,18 @@ export function Navbar() {
   })
   const [scrolled, setScrolled] = useState(false)
   const [promoVisible, setPromoVisible] = useState(true)
+  const { user, openAuth, openDashboard } = useAuthStore()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 24)
     setPromoVisible(latest <= 40)
   })
+
+  function goToSeller() {
+    // Belum login -> dialog daftar penjual; sudah -> dashboard penjual
+    if (user) openDashboard('seller')
+    else openAuth('seller')
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -155,6 +164,22 @@ export function Navbar() {
 
           <div className="flex items-center gap-2">
             <Button
+              variant="ghost"
+              onClick={goToSeller}
+              aria-label="Jual akun — daftar jadi penjual"
+              className="hidden h-11 rounded-full px-4 font-semibold text-primary hover:bg-primary/10 md:inline-flex"
+            >
+              <Store className="h-4 w-4" aria-hidden="true" />
+              Jual Akun
+            </Button>
+
+            {user ? (
+              <AccountMenu />
+            ) : (
+              <LoginButton onClick={() => openAuth('login')} className="h-11 gap-2 rounded-full border-primary/50 px-4 font-semibold transition-transform hover:scale-105 hover:bg-primary/10 sm:px-5" />
+            )}
+
+            <Button
               asChild
               className="h-11 rounded-full px-4 font-semibold transition-transform hover:scale-105 sm:px-5"
             >
@@ -182,7 +207,7 @@ export function Navbar() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="glass w-[320px] border-l border-border sm:max-w-[320px]"
+                className="glass w-[320px] overflow-y-auto border-l border-border sm:max-w-[320px]"
               >
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2 text-lg font-extrabold">
@@ -196,7 +221,24 @@ export function Navbar() {
                   </SheetDescription>
                 </SheetHeader>
 
-                <nav aria-label="Navigasi mobile" className="flex flex-col gap-1 px-4">
+                <div className="px-4">
+                  <MobileAccountCard />
+                </div>
+
+                <nav aria-label="Navigasi mobile" className="mt-4 flex flex-col gap-1 px-4">
+                  <SheetClose asChild>
+                    <button
+                      type="button"
+                      onClick={goToSeller}
+                      className="flex min-h-[48px] items-center justify-between rounded-xl px-4 text-base font-bold text-primary"
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <Store className="h-4 w-4" aria-hidden="true" />
+                        Jual Akun
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-primary/60" aria-hidden="true" />
+                    </button>
+                  </SheetClose>
                   {NAV_LINKS.map((link) => (
                     <SheetClose asChild key={link.href}>
                       <a

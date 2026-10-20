@@ -57,3 +57,79 @@ model Faq {
   answer   String
   order    Int    @default(0)
 }
+
+// ==================== AUTH & MARKETPLACE PENJUAL ====================
+
+/// Pengguna terdaftar via login WhatsApp OTP.
+/// role: BUYER (pembeli) | SELLER (penjual) | ADMIN (super admin, nomor WA pemilik)
+model User {
+  id        String    @id @default(cuid())
+  phone     String    @unique
+  name      String?
+  role      String    @default("BUYER")
+  email     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  sessions  Session[]
+  listings  Listing[]
+  orders    Order[]
+}
+
+/// Kode OTP 6 digit untuk verifikasi login via WhatsApp.
+model OtpCode {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([phone, createdAt])
+}
+
+/// Sesi login (cookie httpOnly `ra_session` -> token acak).
+model Session {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+/// Akun yang didaftarkan penjual untuk dijual di marketplace.
+/// status: PENDING (menunggu kurasi admin) | APPROVED (tayang) | REJECTED (ditolak) | SOLD (terjual)
+model Listing {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  sellerId    String
+  seller      User      @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  platform    String
+  title       String
+  description String
+  price       Int
+  followers   String?
+  level       String    @default("AMAN")
+  status      String    @default("PENDING")
+  adminNote   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status, createdAt])
+  @@index([sellerId, status])
+}
+
+/// Pesanan pembeli (checkout dibantu admin via WhatsApp).
+/// status: MENUNGGU_PEMBAYARAN | DIPROSES | SELESAI | DIBATALKAN
+model Order {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  buyerId     String
+  buyer       User      @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  productId   String?
+  productName String
+  amount      Int
+  quantity    Int       @default(1)
+  status      String    @default("MENUNGGU_PEMBAYARAN")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
