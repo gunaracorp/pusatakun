@@ -222,3 +222,19 @@ Stage Summary:
 - Hydration mismatch terkonfirmasi TIDAK ada lagi pada kode saat ini; penyebab laporan user = HTML dev usang di tab browser (stale HMR) — cukup hard refresh sekali.
 - Kode dibuat tahan banting: tahun copyright kini hydration-safe di 4 file; auth-dialog.tsx mati dihapus; warning scroll-behavior Next.js dihilangkan.
 - Semua route (/, /masuk, /daftar, /admin) diverifikasi interaktif via browser: login WhatsApp OTP end-to-end sukses, dashboard pembeli menampilkan data nyata.
+
+---
+Task ID: 5 (fix-glass-transparan)
+Agent: Z.ai Code (main orchestrator)
+Task: Bug laporan user (screenshot) — konten katalog "menembus" navbar & sticky filter bar yang transparan sehingga teks saling tumpang tindih; plus pertanyaan apakah ukuran render preview memang sekecil itu
+
+Work Log:
+- Menganalisis screenshot user (upload/bug-raja-akun.png, viewport ~732px): kartu produk & teks harga terlihat di belakang navbar fixed dan filter bar sticky — keduanya memakai util .glass.
+- Akar masalah di src/app/globals.css: .glass memakai background oklch(1 0 0 / 4%) (putih 4% opacity!) yang hanya "nyaman dilihat" jika backdrop-filter blur didukung/berjalan; tanpa itu panel nyaris full transparan -> bleed-through seperti pada screenshot.
+- Fix: .glass diganti menjadi near-opaque royal dark oklch(0.17 0.012 70 / 96%) + blur 14px + border putih 10% — satu perubahan memperbaiki 18 komponen yang memakai glass sekaligus (navbar scrolled, filter bar sticky katalog, ticker notifikasi, sheet menu mobile, sheet detail produk, kartu mengambang hero, floating WA, back-to-top, dll). Aman bahkan jika backdrop-filter tidak didukung (hanya 4% bleed, tak kasat mata).
+- Verifikasi agent-browser dengan viewport yang SAMA dengan user (732x709): scroll katalog -> navbar & filter bar solid, kartu produk tidak menembus; menu mobile (hamburger) -> drawer solid, kartu akun ADMIN + nav links terbaca; flash sale banner + countdown solid.
+- Verifikasi desktop 1280px: hero (kartu IG/Netflix/ML solid), filter bar sticky solid, grid 4 kolom, lint bersih.
+
+Stage Summary:
+- .glass kini 96% opaque (tema royal dark hangat) — masalah transparan/tumpang tindih di SEMUA permukaan glass selesai permanen, termasuk browser tanpa backdrop-filter.
+- Ukuran kecil di preview ADALAH normal: preview panel hanya ~732px lebar sehingga situs menampilkan layout tablet (2 kolom); situs responsif penuh — buka "Open in New Tab" dan maksimalkan jendela untuk layout desktop 4 kolom.

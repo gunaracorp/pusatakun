@@ -162,12 +162,14 @@
     animation: shine 6s linear infinite;
   }
 
-  /* Frosted glass panel */
+  /* Frosted glass panel — near-opaque royal dark.
+     PENTING: alpha 96% agar konten di bawah TIDAK menembus meski
+     backdrop-filter tidak didukung browser (anti tumpang tindih). */
   .glass {
-    background: oklch(1 0 0 / 4%);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid oklch(1 0 0 / 9%);
+    background: oklch(0.17 0.012 70 / 96%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid oklch(1 0 0 / 10%);
   }
 
   /* Faded horizontal edges (marquees) */
