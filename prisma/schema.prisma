@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  name      String
+  tagline   String
+  icon      String
+  gradient  String
+  order     Int       @default(0)
+  createdAt DateTime  @default(now())
+  products  Product[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  description String
+  price       Int
+  oldPrice    Int?
+  stock       Int
+  totalStock  Int      @default(100)
+  level       String
+  warranty    String
+  featured    Boolean  @default(false)
+  hot         Boolean  @default(false)
+  sold        Int      @default(0)
+  rating      Float    @default(4.9)
+  specs       String
+  createdAt   DateTime @default(now())
+}
+
+model Testimonial {
+  id       String @id @default(cuid())
+  name     String
+  city     String
+  role     String
+  content  String
+  rating   Int    @default(5)
+  initials String
+  order    Int    @default(0)
+}
+
+model Faq {
+  id       String @id @default(cuid())
+  question String
+  answer   String
+  order    Int    @default(0)
+}
