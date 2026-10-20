@@ -1,8 +1,8 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
 import { ArrowUpRight, Clock, Crown, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { SITE, waLink, type CategoryDTO } from '@/lib/marketplace'
+import { useCurrentYear } from '@/lib/use-current-year'
 
 const NAV_LINKS = [
   { label: 'Katalog', href: '#katalog' },
@@ -13,15 +13,8 @@ const NAV_LINKS = [
   { label: 'Keunggulan', href: '#keunggulan' },
 ]
 
-// ---- Hydration-safe current year (no setState-in-effect) ----
-const subscribeNoop = () => () => {}
-const getYear = () => new Date().getFullYear()
-const getServerYear = () => 2025
-
 export function Footer({ categories }: { categories: CategoryDTO[] }) {
-  // Hydration-safe dynamic year: server snapshot is fixed (2025),
-  // client snapshot resolves after mount without setState-in-effect.
-  const year = useSyncExternalStore(subscribeNoop, getYear, getServerYear)
+  const year = useCurrentYear()
 
   function goToKategori() {
     document.getElementById('kategori')?.scrollIntoView({ behavior: 'smooth' })

@@ -34,6 +34,7 @@ import {
   formatCountdown,
 } from '@/components/rajaakun/auth-shell'
 import { SITE } from '@/lib/marketplace'
+import { useCurrentYear } from '@/lib/use-current-year'
 import { useAuthStore, type AuthUser } from '@/store/auth-store'
 
 type Step = 'role' | 'phone' | 'otp' | 'profile'
@@ -465,7 +466,7 @@ export function RegisterPage() {
 
       <footer className="relative z-10 border-t border-border bg-background py-5">
         <p className="text-center text-xs font-medium text-muted-foreground">
-          © {new Date().getFullYear()} Raja Akun ({SITE.domain}) · Sebuah layanan dari{' '}
+          © {useCurrentYear()} Raja Akun ({SITE.domain}) · Sebuah layanan dari{' '}
           {SITE.company}
         </p>
       </footer>

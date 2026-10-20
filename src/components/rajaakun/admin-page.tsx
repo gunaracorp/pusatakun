@@ -47,6 +47,7 @@ import {
   type ListingStatus,
   type SellerListingDTO,
 } from '@/lib/marketplace'
+import { useCurrentYear } from '@/lib/use-current-year'
 import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/store/auth-store'
 
@@ -356,7 +357,7 @@ export function AdminPage() {
 
       <footer className="relative z-10 border-t border-border bg-background py-5">
         <p className="text-center text-xs font-medium text-muted-foreground">
-          © {new Date().getFullYear()} Raja Akun ({SITE.domain}) · Sistem internal{' '}
+          © {useCurrentYear()} Raja Akun ({SITE.domain}) · Sistem internal{' '}
           {SITE.company}
         </p>
       </footer>

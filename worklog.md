@@ -201,3 +201,24 @@ Stage Summary:
 - Dialog auth & Sheet admin pensiun dari beranda; semua pintu (navbar, menu mobile, menu akun, CTA beli, CTA penjual) kini mengarah ke halaman tunggal.
 - Panel admin = gerbang OTP + dasbor kurasi inline dalam satu halaman; non-admin melihat kartu penolakan solid.
 - SEO: /masuk & /daftar terindeks + masuk sitemap; /admin noindex + Disallow robots.
+
+---
+Task ID: 4 (fix-hydration)
+Agent: Z.ai Code (main orchestrator)
+Task: Fix laporan error console "A tree hydrated but some attributes of the server rendered HTML didn't match" (React 19 useId/Radix hydration mismatch) pada homepage rajaakun.web.id
+
+Work Log:
+- Menganalisis laporan error yang di-paste user (upload/Pasted Content_1792530669134.txt): seluruh ID Radix (Sheet, Select, Accordion) bergeser antara server (_R_4uaindlb_) dan client (_R_17iindlb_) — pola khas useId mismatch akibat pohon fiber berbeda, tanpa elemen DOM yang salah.
+- Audit statis seluruh komponen homepage (navbar, hero, trust-marquee, categories-section, catalog, seller-listings-section, why-us, how-it-works, testimonials, faq-section, cta-section, footer, floating, ticker): auth-store TIDAK dipersist (user=null di kedua sisi), countdown flash-sale mulai null (aman), ticker deterministik, format angka manual anti-locale — semua pola hydration-safe.
+- Verifikasi live via agent-browser: fresh load / , reload 2x, /masuk, /daftar, /admin → NOL error hydration. Kesimpulan: error user berasal dari sesi dev usang (tab lama bercampur bundle baru setelah refactor dialog->halaman tunggal di sesi sebelumnya); hard refresh sekali menghapusnya permanen.
+- Menghapus src/components/rajaakun/auth-dialog.tsx (kode mati — alur login modal lama yang dulu dikeluhkan user, sudah tidak diimpor siapa pun).
+- Membuat src/lib/use-current-year.ts: hook useCurrentYear() berbasis useSyncExternalStore (server snapshot 2025 tetap, klien tahun berjalan) — pola resmi React untuk menghindari mismatch `new Date().getFullYear()`.
+- Menerapkan useCurrentYear() pada footer /masuk (login-page.tsx), /daftar (register-page.tsx), /admin (admin-page.tsx); footer.tsx di-refactor memakai hook yang sama.
+- Memperbaiki warning Next.js `scroll-behavior: smooth`: menambah data-scroll-behavior="smooth" pada <html> di app/layout.tsx.
+- Warning framer-motion "non-static position" (dari useScroll({target}) di Hero): diverifikasi hanya muncul di mode dev (dibungkus process.env.NODE_ENV di framer-motion), tidak ada di production — dibiarkan.
+- Verifikasi akhir agent-browser: lint bersih; interaksi emas semua jalan (akordeon FAQ expand, Select kategori membuka 12+ opsi, sheet detail produk, menu akun -> Pesanan Saya menampilkan pesanan ORD-FAA2BG, alur login OTP penuh: isi nomor -> kode 091576 -> verifikasi -> navbar berubah "Akun Saya"); footer menempel benar; screenshot /admin, /masuk, /, katalog, footer semua ter-render solid & kontras.
+
+Stage Summary:
+- Hydration mismatch terkonfirmasi TIDAK ada lagi pada kode saat ini; penyebab laporan user = HTML dev usang di tab browser (stale HMR) — cukup hard refresh sekali.
+- Kode dibuat tahan banting: tahun copyright kini hydration-safe di 4 file; auth-dialog.tsx mati dihapus; warning scroll-behavior Next.js dihilangkan.
+- Semua route (/, /masuk, /daftar, /admin) diverifikasi interaktif via browser: login WhatsApp OTP end-to-end sukses, dashboard pembeli menampilkan data nyata.
