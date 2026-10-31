@@ -63,6 +63,13 @@ type VerifyResponse = {
   error?: string
 }
 
+/** Halaman dashboard tujuan sesuai peran (pemilik -> pusat komando). */
+function dashboardPathFor(role: AuthUser['role']): string {
+  if (role === 'ADMIN') return '/dashboard/admin'
+  if (role === 'SELLER') return '/dashboard/penjual'
+  return '/dashboard'
+}
+
 export function LoginPage() {
   const router = useRouter()
   const { toast } = useToast()
@@ -169,7 +176,7 @@ export function LoginPage() {
           title: 'Berhasil masuk!',
           description: `Selamat datang kembali di Raja Akun${data.user.name ? `, ${data.user.name}` : ''}.`,
         })
-        router.replace('/')
+        router.replace(dashboardPathFor(data.user.role))
       }
     } catch {
       setError('Koneksi bermasalah. Coba lagi ya.')
@@ -204,7 +211,7 @@ export function LoginPage() {
             ? 'Kamu terdaftar sebagai Penjual — buka Dashboard Penjual untuk daftarkan akun pertamamu.'
             : 'Kamu terdaftar sebagai Pembeli — selamat berbelanja akun bergaransi!',
       })
-      router.replace('/')
+      router.replace(dashboardPathFor(role))
     } catch {
       setError('Koneksi bermasalah. Coba lagi ya.')
     } finally {

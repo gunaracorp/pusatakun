@@ -9,8 +9,6 @@ import { BackToTop } from './back-to-top'
 import { Catalog } from './catalog'
 import { CategoriesSection } from './categories-section'
 import { CtaSection } from './cta-section'
-import { BuyerDashboardSheet } from './dashboard-buyer'
-import { SellerDashboardSheet } from './dashboard-seller'
 import { FaqSection } from './faq-section'
 import { FloatingWhatsApp } from './floating-whatsapp'
 import { Footer } from './footer'
@@ -99,10 +97,7 @@ export function HomeClient({
         open={detailOpen}
         onOpenChange={setDetailOpen}
       />
-
-      {/* Dashboard (dikontrol via auth-store); login & panel admin = halaman tunggal /masuk & /admin */}
-      <SellerDashboardSheet categories={categories} />
-      <BuyerDashboardSheet />
+      {/* Dashboard kini halaman penuh: /dashboard (pembeli), /dashboard/penjual, /dashboard/admin */}
     </div>
   )
 }

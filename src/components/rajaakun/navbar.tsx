@@ -91,7 +91,7 @@ export function Navbar() {
   })
   const [scrolled, setScrolled] = useState(false)
   const [promoVisible, setPromoVisible] = useState(true)
-  const { user, openDashboard } = useAuthStore()
+  const { user } = useAuthStore()
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 24)
@@ -100,7 +100,7 @@ export function Navbar() {
 
   function goToSeller() {
     // Sudah login -> dashboard penjual; belum -> halaman tunggal daftar (peran penjual)
-    if (user) openDashboard('seller')
+    if (user) router.push('/dashboard/penjual')
     else router.push('/daftar?peran=penjual')
   }
 

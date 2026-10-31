@@ -182,10 +182,10 @@ export function RegisterPage() {
         title: `Selamat datang, ${data.user.name ?? 'Raja'}!`,
         description:
           role === 'SELLER'
-            ? 'Akun penjualmu aktif. Buka menu akun (kiri atas) lalu pilih Dashboard Penjual untuk mendaftarkan akun pertamamu.'
+            ? 'Akun penjualmu aktif. Daftarkan akun pertamamu di Dashboard Penjual.'
             : 'Akun pembelimu aktif. Yuk jelajahi katalog dan temukan akun impianmu!',
       })
-      router.replace('/')
+      router.replace(data.user.role === 'SELLER' ? '/dashboard/penjual' : '/dashboard')
     } catch {
       setError('Koneksi bermasalah. Coba lagi ya.')
     } finally {

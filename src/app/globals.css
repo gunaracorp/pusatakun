@@ -143,6 +143,15 @@
   background: linear-gradient(180deg, oklch(0.8 0.15 85), oklch(0.6 0.1 80));
 }
 
+/* Sembunyikan scrollbar (strip tab mobile dashboard) */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* ============ Brand utilities ============ */
 @layer utilities {
   /* Gold gradient text */

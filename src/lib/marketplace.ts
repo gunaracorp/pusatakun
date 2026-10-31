@@ -179,6 +179,49 @@ export const LISTING_STATUS_LABEL: Record<ListingStatus, string> = {
   SOLD: 'Terjual',
 }
 
+// ============ Dashboard pemilik (admin) ============
+
+export type AdminOrderDTO = OrderDTO & {
+  buyerName: string | null
+  buyerPhone: string
+  buyerInitials: string
+}
+
+export type AdminUserDTO = {
+  id: string
+  name: string | null
+  phone: string
+  role: 'BUYER' | 'SELLER' | 'ADMIN'
+  createdAt: string
+  orderCount: number
+  listingCount: number
+}
+
+export type AdminOverviewDTO = {
+  users: { total: number; buyer: number; seller: number; admin: number }
+  orders: {
+    total: number
+    menunggu: number
+    diproses: number
+    selesai: number
+    dibatalkan: number
+    gmv: number
+    komisi: number
+  }
+  listings: { total: number; pending: number; approved: number; rejected: number; sold: number }
+  products: { total: number; totalSold: number }
+  recentOrders: AdminOrderDTO[]
+  recentListings: SellerListingDTO[]
+  recentUsers: AdminUserDTO[]
+}
+
+export const ADMIN_ORDER_STATUSES: OrderStatus[] = [
+  'MENUNGGU_PEMBAYARAN',
+  'DIPROSES',
+  'SELESAI',
+  'DIBATALKAN',
+]
+
 export function initialsOf(name: string | null): string {
   if (!name) return 'RA'
   const parts = name.trim().split(/\s+/).slice(0, 2)

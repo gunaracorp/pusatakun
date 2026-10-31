@@ -130,6 +130,40 @@ export async function GET(req: NextRequest) {
 }
 
 /**
+ * DELETE /api/listings?id=... — penjual menarik listing miliknya sendiri.
+ * Hanya listing PENDING / REJECTED yang boleh ditarik (APPROVED/SOLD lewat admin).
+ * -> { ok, deleted: true }
+ */
+export async function DELETE(req: NextRequest) {
+  try {
+    const { user, error } = await requireUser(req)
+    if (error) return error
+
+    const id = req.nextUrl.searchParams.get('id')?.trim() ?? ''
+    if (!id) {
+      return NextResponse.json({ ok: false, error: 'ID listing wajib.' }, { status: 400 })
+    }
+
+    const listing = await db.listing.findUnique({ where: { id } })
+    if (!listing || listing.sellerId !== user.id) {
+      return NextResponse.json({ ok: false, error: 'Listing tidak ditemukan.' }, { status: 404 })
+    }
+    if (listing.status !== 'PENDING' && listing.status !== 'REJECTED') {
+      return NextResponse.json(
+        { ok: false, error: 'Listing yang sudah tayang/terjual hanya bisa dihapus admin.' },
+        { status: 400 },
+      )
+    }
+
+    await db.listing.delete({ where: { id } })
+    return NextResponse.json({ ok: true, deleted: true })
+  } catch (e) {
+    console.error('[API /api/listings DELETE]', e)
+    return NextResponse.json({ ok: false, error: 'Gagal menarik listing.' }, { status: 500 })
+  }
+}
+
+/**
  * POST /api/listings — penjual mendaftarkan akun untuk dijual.
  * Body: { platform, title, description, price, followers?, level? }
  * -> status PENDING (menunggu kurasi admin). Pembeli otomatis dipromosikan jadi SELLER.

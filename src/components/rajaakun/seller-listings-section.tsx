@@ -332,12 +332,12 @@ export function SellerListingsSection() {
 
 /** CTA penjual — dipisah agar store diakses di komponen klien kecil. */
 export function SellerCtaButtons() {
-  const { user, openDashboard } = useAuthStore()
+  const { user } = useAuthStore()
   const router = useRouter()
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
       {user ? (
-        <Button onClick={() => openDashboard('seller')} className="h-12 rounded-full px-6 font-bold">
+        <Button onClick={() => router.push('/dashboard/penjual')} className="h-12 rounded-full px-6 font-bold">
           <Store className="mr-1.5 h-5 w-5" aria-hidden="true" />
           Buka Dashboard Penjual
         </Button>

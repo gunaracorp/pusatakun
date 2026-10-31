@@ -23,7 +23,7 @@ import { ROLE_BADGE_LABELS } from '@/components/rajaakun/role-badges'
 import { useAuthStore } from '@/store/auth-store'
 
 export function AccountMenu() {
-  const { user, openDashboard, logout } = useAuthStore()
+  const { user, logout } = useAuthStore()
   if (!user) return null
 
   const badge = ROLE_BADGE_LABELS[user.role]
@@ -62,26 +62,26 @@ export function AccountMenu() {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => openDashboard('buyer')} className="cursor-pointer gap-2">
-          <ShoppingBag className="h-4 w-4 text-primary" aria-hidden="true" />
-          Pesanan Saya
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link href="/dashboard" className="gap-2">
+            <ShoppingBag className="h-4 w-4 text-primary" aria-hidden="true" />
+            Dashboard Pembeli
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => openDashboard('seller')} className="cursor-pointer gap-2">
-          <Store className="h-4 w-4 text-primary" aria-hidden="true" />
-          Dashboard Penjual
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link href="/dashboard/penjual" className="gap-2">
+            <Store className="h-4 w-4 text-primary" aria-hidden="true" />
+            Dashboard Penjual
+          </Link>
         </DropdownMenuItem>
         {user.role === 'ADMIN' && (
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href="/admin" className="gap-2">
+            <Link href="/dashboard/admin" className="gap-2">
               <ShieldCheck className="h-4 w-4 text-amber-400" aria-hidden="true" />
-              Panel Admin (Halaman Penuh)
+              Dashboard Pemilik
             </Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onClick={() => openDashboard('seller')} className="cursor-pointer gap-2">
-          <LayoutDashboard className="h-4 w-4 text-primary" aria-hidden="true" />
-          Toko Saya
-        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => void logout()} className="cursor-pointer gap-2 text-destructive focus:text-destructive">
           <LogOut className="h-4 w-4" aria-hidden="true" />
@@ -114,7 +114,7 @@ export function LoginButton({ href = '/masuk', className }: { href?: string; cla
 
 /** Kartu akun untuk sheet menu mobile. */
 export function MobileAccountCard() {
-  const { user, openDashboard, logout } = useAuthStore()
+  const { user, logout } = useAuthStore()
   if (!user) {
     return (
       <Link
@@ -153,25 +153,27 @@ export function MobileAccountCard() {
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-2 pt-1">
-        <Button
-          variant="outline"
-          size="sm"
-          className="h-10 text-xs"
-          onClick={() => openDashboard('buyer')}
-        >
-          <ShoppingBag className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
-          Pesanan
+      <div className={user.role === 'ADMIN' ? 'grid grid-cols-2 gap-2 pt-1' : 'grid grid-cols-3 gap-2 pt-1'}>
+        <Button variant="outline" size="sm" asChild className="h-10 text-xs">
+          <Link href="/dashboard">
+            <ShoppingBag className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
+            Pesanan
+          </Link>
         </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          className="h-10 text-xs"
-          onClick={() => openDashboard('seller')}
-        >
-          <Store className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
-          Toko
+        <Button variant="outline" size="sm" asChild className="h-10 text-xs">
+          <Link href="/dashboard/penjual">
+            <Store className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
+            Toko
+          </Link>
         </Button>
+        {user.role === 'ADMIN' && (
+          <Button variant="outline" size="sm" asChild className="h-10 text-xs">
+            <Link href="/dashboard/admin">
+              <LayoutDashboard className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
+              Pemilik
+            </Link>
+          </Button>
+        )}
         <Button variant="outline" size="sm" className="h-10 text-xs" onClick={() => void logout()}>
           <LogOut className="mr-1 h-3.5 w-3.5" aria-hidden="true" />
           Keluar

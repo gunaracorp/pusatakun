@@ -8,6 +8,7 @@ import { useCurrentYear } from '@/lib/use-current-year'
 const NAV_LINKS = [
   { label: 'Beranda', href: '/' },
   { label: 'Katalog Akun', href: '/katalog' },
+  { label: 'Dashboard Akun', href: '/dashboard' },
   { label: 'Tentang Kami', href: '/tentang' },
   { label: 'Pusat Bantuan', href: '/pusat-bantuan' },
   { label: 'Kontak', href: '/kontak' },

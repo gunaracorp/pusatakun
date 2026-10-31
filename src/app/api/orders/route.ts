@@ -27,6 +27,51 @@ function toOrderDTO(o: {
   }
 }
 
+/**
+ * PATCH /api/orders — pembeli membatalkan pesanan miliknya sendiri.
+ * Body: { id: string, action: 'cancel' }
+ * Hanya pesanan MENUNGGU_PEMBAYARAN yang boleh dibatalkan.
+ * -> { ok, order }
+ */
+export async function PATCH(req: NextRequest) {
+  try {
+    const { user, error } = await requireUser(req)
+    if (error) return error
+
+    const body = (await req.json().catch(() => ({}))) as { id?: string; action?: string }
+    const id = (body.id ?? '').trim()
+    if (!id || body.action !== 'cancel') {
+      return NextResponse.json(
+        { ok: false, error: 'Parameter tidak valid.' },
+        { status: 400 },
+      )
+    }
+
+    const order = await db.order.findUnique({ where: { id } })
+    if (!order || order.buyerId !== user.id) {
+      return NextResponse.json(
+        { ok: false, error: 'Pesanan tidak ditemukan.' },
+        { status: 404 },
+      )
+    }
+    if (order.status !== 'MENUNGGU_PEMBAYARAN') {
+      return NextResponse.json(
+        { ok: false, error: 'Pesanan yang sudah diproses tidak bisa dibatalkan. Chat admin ya.' },
+        { status: 400 },
+      )
+    }
+
+    const updated = await db.order.update({
+      where: { id },
+      data: { status: 'DIBATALKAN' },
+    })
+    return NextResponse.json({ ok: true, order: toOrderDTO(updated) })
+  } catch (e) {
+    console.error('[API /api/orders PATCH]', e)
+    return NextResponse.json({ ok: false, error: 'Gagal membatalkan pesanan.' }, { status: 500 })
+  }
+}
+
 /** GET /api/orders — daftar pesanan pembeli yang sedang login. */
 export async function GET(req: NextRequest) {
   try {
