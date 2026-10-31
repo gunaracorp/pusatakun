@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { db } from '@/lib/db'
-import { PageHero } from '@/components/rajaakun/page-hero'
-import { PageShell } from '@/components/rajaakun/page-shell'
-import { HelpCenter } from '@/components/rajaakun/help-center'
+import { PageHero } from '@/components/pusatakun/page-hero'
+import { PageShell } from '@/components/pusatakun/page-shell'
+import { HelpCenter } from '@/components/pusatakun/help-center'
 import { faqJsonLd } from '@/lib/seo'
 import { SITE } from '@/lib/marketplace'
 import { getPageCategories } from '@/lib/page-data'
@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Pusat Bantuan',
   description:
-    'Pusat Bantuan Raja Akun — cara membeli akun 4 langkah, cara jadi penjual, arti level FRESH/AMAN/PREMIUM/MONETIZE, dan jawaban pertanyaan yang paling sering ditanyakan.',
+    'Pusat Bantuan Pusatakun — cara membeli akun 4 langkah, cara jadi penjual, arti level FRESH/AMAN/PREMIUM/MONETIZE, dan jawaban pertanyaan yang paling sering ditanyakan.',
   alternates: { canonical: '/pusat-bantuan' },
   robots: { index: true, follow: true },
 }

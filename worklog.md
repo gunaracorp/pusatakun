@@ -1,9 +1,9 @@
-# Worklog — Proyek RAJA AKUN (rajaakun.web.id)
+# Worklog — Proyek PUSATAKUN (pusatakun.web.id)
 
 ---
 Task ID: 1 & 2
 Agent: Z.ai Code (main orchestrator)
-Task: Fondasi database + API untuk marketplace Raja Akun
+Task: Fondasi database + API untuk marketplace Pusatakun
 
 Work Log:
 - Riset struktur proyek: Next.js 16 + TS + Tailwind 4 + shadcn/ui (New York) + framer-motion 12 + Prisma/SQLite (db/custom.db, DATABASE_URL di .env)
@@ -18,7 +18,7 @@ Work Log:
 - Menulis ulang src/app/globals.css dengan tema ROYAL DARK GOLD (:root + .dark, oklch): background hitam hangat 0.135, primary emas oklch(0.8 0.155 85), card lebih terang, font-sans var(--font-jakarta)
 - Utilities kustom globals.css: .text-gradient-gold (animated shine), .glass, .mask-fade-x, .bg-royal-glow, .bg-royal-grid, .card-glow, .marquee-track (+reverse, hover pause), .conic-ring; keyframes marquee/marquee-reverse/float/spin/shine/pulse-glow; scrollbar emas; prefers-reduced-motion support
 - Membuat src/store/catalog-store.ts (zustand): q, category, level, priceIdx, sort + setters (dipakai lintas Hero/Kategori/Katalog)
-- Direktori dibuat: src/components/rajaakun/, src/store/
+- Direktori dibuat: src/components/pusatakun/, src/store/
 
 Stage Summary:
 - Kontrak data & state global SUDAH FINAL — komponen wajib impor tipe dari `@/lib/marketplace` dan store dari `@/store/catalog-store`
@@ -28,14 +28,14 @@ Stage Summary:
 ---
 Task ID: 3-a
 Agent: general-purpose (SEO Architect)
-Task: SEO infrastructure rajaakun.web.id
+Task: SEO infrastructure pusatakun.web.id
 
 Work Log:
 - Baca worklog.md, src/lib/marketplace.ts (SITE config + DTO), globals.css (tema Royal Dark Gold) untuk konteks
 - Hapus public/robots.txt (konflik dengan app/robots.ts metadata route Next.js)
-- Membuat src/lib/seo.ts — buildHomeMetadata(): Metadata lengkap (metadataBase https://rajaakun.web.id, title default + template '%s | Raja Akun', description SEO kaya keyword berbahasa Indonesia, 36 keywords, authors/creator/publisher/category 'ecommerce', canonical '/', OpenGraph website id_ID + og-image 1200x630, Twitter card summary_large_image, robots index/follow + googleBot max-snippet/-1 max-image-preview large, formatDetection telephone:false)
-- JSON-LD builders (semua return Record<string, unknown>): organizationJsonLd() (Organization, logo /icon.svg, foundingDate 2021, address Jakarta ID, contactPoint tel '+62' format, availableLanguage id, hoursAvailable 24/7), websiteJsonLd() (WebSite id-ID + SearchAction target /?q={search_term_string}), faqJsonLd(faqs) (FAQPage, strip HTML via helper stripHtml), productListJsonLd(products) (ItemList → ListItem posisi 1..n, Product + brand Raja Akun + Offer IDR + InStock/OutOfStock by stock + aggregateRating reviewCount deterministik 100+(slug.length%200)), breadcrumbJsonLd() (Home → Katalog Akun #katalog)
-- Membuat src/app/sitemap.ts (1 entry: url SITE.url, lastModified new Date(), daily, priority 1), src/app/robots.ts (allow all + sitemap + host), src/app/manifest.ts (PWA manifest: name Raja Akun, theme #F0A93C, bg #141210, lang id, icons /icon.svg any + maskable)
+- Membuat src/lib/seo.ts — buildHomeMetadata(): Metadata lengkap (metadataBase https://pusatakun.web.id, title default + template '%s | Pusatakun', description SEO kaya keyword berbahasa Indonesia, 36 keywords, authors/creator/publisher/category 'ecommerce', canonical '/', OpenGraph website id_ID + og-image 1200x630, Twitter card summary_large_image, robots index/follow + googleBot max-snippet/-1 max-image-preview large, formatDetection telephone:false)
+- JSON-LD builders (semua return Record<string, unknown>): organizationJsonLd() (Organization, logo /icon.svg, foundingDate 2021, address Jakarta ID, contactPoint tel '+62' format, availableLanguage id, hoursAvailable 24/7), websiteJsonLd() (WebSite id-ID + SearchAction target /?q={search_term_string}), faqJsonLd(faqs) (FAQPage, strip HTML via helper stripHtml), productListJsonLd(products) (ItemList → ListItem posisi 1..n, Product + brand Pusatakun + Offer IDR + InStock/OutOfStock by stock + aggregateRating reviewCount deterministik 100+(slug.length%200)), breadcrumbJsonLd() (Home → Katalog Akun #katalog)
+- Membuat src/app/sitemap.ts (1 entry: url SITE.url, lastModified new Date(), daily, priority 1), src/app/robots.ts (allow all + sitemap + host), src/app/manifest.ts (PWA manifest: name Pusatakun, theme #F0A93C, bg #141210, lang id, icons /icon.svg any + maskable)
 - Membuat src/app/icon.svg — favicon 48x48 viewBox: rounded square #141210, border emas tipis, mahkota 3 puncak gradient #F0A93C→#FFD97A + permata tengah + band dasar
 - Verifikasi: bunx eslint (4 file) → 0 error; bunx tsc --noEmit → 0 error di file saya (error tersisa hanya di examples/ & skills/ di luar tanggung jawab); smoke-test runtime semua builder via bun (title, 36 keywords, canonical, og id_ID, tel +628..., strip HTML FAQ, InStock/OutOfStock, reviewCount 120 utk slug len 20); curl /sitemap.xml /robots.txt /manifest.webmanifest /icon.svg → semua 200 dengan konten benar; dev.log bersih tanpa error terkait file saya
 
@@ -48,11 +48,11 @@ Stage Summary:
 ---
 Task ID: 3-b
 Agent: frontend-styling-expert (UI/UX Director)
-Task: Komponen animasi penuh rajaakun.web.id
+Task: Komponen animasi penuh pusatakun.web.id
 
 Work Log:
 - Baca worklog 1&2, marketplace.ts, catalog-store.ts, globals.css; verifikasi 38 ikon lucide tersedia di node_modules (semua OK, tanpa fallback kecil)
-- Tulis 14 file di src/components/rajaakun/ (semua 'use client', named export, easing [0.22,1,0.36,1], durasi 0.4-0.8s, stagger 0.06-0.1s, whileInView once:true):
+- Tulis 14 file di src/components/pusatakun/ (semua 'use client', named export, easing [0.22,1,0.36,1], durasi 0.4-0.8s, stagger 0.06-0.1s, whileInView once:true):
   - motion-primitives.tsx: Reveal (MotionConfig reducedMotion="user"), CountUp (useInView + animate(), format manual titik/koma — TANPA Intl; opsional prop `compact` memakai formatCompact dari lib untuk totalSold), SectionHeading (kicker pill glass + h2 gradient + subtitle; align center/left)
   - navbar.tsx: fixed z-50; progress bar bacaan useScroll+useSpring scaleX h-[3px]; promo strip marquee (hilang saat scrollY>40 via AnimatePresence exit-only initial={false}); bar glass saat scrollY>24 (useMotionValueEvent); nav underline scaleX emas; tombol Chat Admin waLink; Sheet kanan (SheetClose asChild di tiap link, SheetTitle+Description untuk a11y radix)
   - hero.tsx: bg-royal-glow + bg-royal-grid + 3 orb blur float (amber/violet/yellow, aria-hidden); H1 per-kata stagger+blur (variants staggerChildren 0.08); form cari (submit -> store.setQ/setCategory('semua') + scrollIntoView #katalog; shortcut '/' fokus input via useEffect keydown); chips kategori cepat (pakai prop categories); CTA row; stats dl 4 kolom CountUp (Package/ShoppingBag/LayoutGrid/Star, totalSold pakai compact); kolom kanan parallax useScroll+useTransform y [0,-60], 3 mini-card float (IG/Netflix/MLBB, formatIDR) + 2 chip (Garansi/Instan) + conic-ring + lingkaran glass; scroll indicator Mouse + dot loop
@@ -68,11 +68,11 @@ Work Log:
   - floating-whatsapp.tsx: motion entrance scale, Button asChild h-14 w-14 rounded-full animate-pulse-glow + span animate-ping bg-primary/40, aria-label
   - back-to-top.tsx: useMotionValueEvent scrollY>600, AnimatePresence scale/fade, Button outline glass h-11 w-11 ArrowUp
 - Perbaikan lint: tambah import SheetClose (navbar); ganti setState-in-effect tahun footer -> useSyncExternalStore (react-hooks/set-state-in-effect)
-- Verifikasi: bunx eslint src/components/rajaakun = 0 error 0 warning (exit 0); bunx tsc --noEmit = TS OK untuk semua file rajaakun; tailwind 4.1.18 (sintaks important trailing `last:border-b!` valid)
+- Verifikasi: bunx eslint src/components/pusatakun = 0 error 0 warning (exit 0); bunx tsc --noEmit = TS OK untuk semua file pusatakun; tailwind 4.1.18 (sintaks important trailing `last:border-b!` valid)
 - Tidak mengubah page.tsx/layout.tsx/globals.css/lib/store/api
 
 Stage Summary:
-- 14 komponen FINAL di src/components/rajaakun/:
+- 14 komponen FINAL di src/components/pusatakun/:
   1. motion-primitives.tsx: Reveal{children,delay=0,y=24,className}, CountUp{to,decimals=0,prefix='',suffix='',className,compact?}, SectionHeading{kicker,title,highlight?,subtitle?,align='center'}, export const EASE
   2. Navbar(), 3. Hero({stats:StatsDTO, categories:CategoryDTO[]}), 4. TrustMarquee(), 5. CategoriesSection({categories,onSelect(categoryId)}), 6. WhyUs(), 7. HowItWorks(), 8. TestimonialsSection({testimonials}), 9. FaqSection({faqs}), 10. CtaSection(), 11. Footer({categories}), 12. ActivityTicker(), 13. FloatingWhatsApp(), 14. BackToTop()
 - Kontrak: section id (beranda/kategori/keunggulan/cara-kerja/testimoni/faq/kontak) scroll-mt-28 + container max-w-7xl; smooth scroll via html scroll-smooth; semua target sentuh >= 44px; tanpa emoji; warna token tema + aksen emas; CountUp anti-hydration (format manual); siap dipakai page.tsx (task berikutnya)
@@ -83,15 +83,15 @@ Agent: Z.ai Code (main orchestrator)
 Task: Inti interaktif katalog + integrasi halaman + layout SEO
 
 Work Log:
-- Menulis src/components/rajaakun/product-card.tsx: kartu produk (badge level berwarna, HOT, diskon %, progress stok scarcity, rating, terjual, harga + coret, tombol Beli WA + Detail) dengan motion layout & whileHover, id anchor `produk-{slug}` untuk JSON-LD
-- Menulis src/components/rajaakun/product-detail-sheet.tsx: Sheet detail produk (harga blok emas, deskripsi, spesifikasi checklist, garansi, 3 trust chips, CTA Beli via WhatsApp, salin nama produk)
-- Menulis src/components/rajaakun/catalog.tsx: sticky filter bar glass (search debounce 350ms → store, Select kategori & urutan, chips LEVELS + PRICE_RANGES, reset), FlashBanner countdown ke tengah malam (hydration-safe), grid AnimatePresence popLayout, skeleton loading, empty state + request admin, error state, Muat Lebih Banyak (offset pagination), skip-fetch awal saat SSR data default cocok
-- Menulis src/components/rajaakun/home-client.tsx: state hub (detail sheet state, selectCategory → store + scroll), merangkai Navbar/Hero/TrustMarquee/Categories/Catalog/WhyUs/HowItWorks/Testimonials/FAQ/CTA/Footer + FloatingWhatsApp/BackToTop/ActivityTicker, skip-link aksesibilitas, min-h-screen flex-col + footer mt-auto
+- Menulis src/components/pusatakun/product-card.tsx: kartu produk (badge level berwarna, HOT, diskon %, progress stok scarcity, rating, terjual, harga + coret, tombol Beli WA + Detail) dengan motion layout & whileHover, id anchor `produk-{slug}` untuk JSON-LD
+- Menulis src/components/pusatakun/product-detail-sheet.tsx: Sheet detail produk (harga blok emas, deskripsi, spesifikasi checklist, garansi, 3 trust chips, CTA Beli via WhatsApp, salin nama produk)
+- Menulis src/components/pusatakun/catalog.tsx: sticky filter bar glass (search debounce 350ms → store, Select kategori & urutan, chips LEVELS + PRICE_RANGES, reset), FlashBanner countdown ke tengah malam (hydration-safe), grid AnimatePresence popLayout, skeleton loading, empty state + request admin, error state, Muat Lebih Banyak (offset pagination), skip-fetch awal saat SSR data default cocok
+- Menulis src/components/pusatakun/home-client.tsx: state hub (detail sheet state, selectCategory → store + scroll), merangkai Navbar/Hero/TrustMarquee/Categories/Catalog/WhyUs/HowItWorks/Testimonials/FAQ/CTA/Footer + FloatingWhatsApp/BackToTop/ActivityTicker, skip-link aksesibilitas, min-h-screen flex-col + footer mt-auto
 - Menulis ulang src/app/page.tsx: server component force-dynamic, getHomeData() query Prisma paralel (14 kategori + 24 produk terlaris + testimoni + FAQ + agregat stats), render 5 blok JSON-LD (Organization, WebSite+SearchAction, Breadcrumb, FAQPage, ItemList produk) + HomeClient
 - Menulis ulang src/app/layout.tsx: font Plus Jakarta Sans (var --font-jakarta) + Geist Mono, lang="id", metadata dari buildHomeMetadata(), viewport themeColor #F0A93C
 - Perbaikan lint react-hooks/set-state-in-effect: fetch katalog dijadikan async IIFE dengan await Promise.resolve() sebelum setState; reset copied di detail sheet via event handler handleOpenChange (bukan effect)
 - Bug fix: getHomeData sekarang mengembalikan totalProducts untuk initialTotal katalog
-- ESLint src/app + src/components/rajaakun + src/lib + src/store: 0 error. tsc --noEmit: bersih
+- ESLint src/app + src/components/pusatakun + src/lib + src/store: 0 error. tsc --noEmit: bersih
 - OG image dibuat via z-ai SDK (1216x640 → crop sharp 1200x630 JPEG q88) di public/og-image.jpg — mahkota emas + smartphone di belakang hitam velvet
 - Verifikasi curl: / 200, /api/products 200, /sitemap.xml 200, /robots.txt 200
 
@@ -113,11 +113,11 @@ Work Log:
 - Footer sticky terverifikasi: footerBottom (8494) === body scrollHeight (8494)
 - Mobile 390x844: hero, katalog (filter bar stack rapi), hamburger menu — semua pas & tidak overflow
 - Console: 0 error page, 0 hydration error; hanya 2 warning benign framer-motion useScroll container
-- SEO smoke test HTML: 5 blok JSON-LD (Organization, WebSite+SearchAction, Breadcrumb, FAQPage, ItemList), canonical https://rajaakun.web.id, og:image 1200x630, lang="id", robots.txt + sitemap.xml + icon.svg + og-image.jpg semuanya 200
+- SEO smoke test HTML: 5 blok JSON-LD (Organization, WebSite+SearchAction, Breadcrumb, FAQPage, ItemList), canonical https://pusatakun.web.id, og:image 1200x630, lang="id", robots.txt + sitemap.xml + icon.svg + og-image.jpg semuanya 200
 - Catatan: error "totalProducts is not defined" di dev.log adalah artefak sebelum perbaikan Task 4 — GET / terakhir 200 OK
 
 Stage Summary:
-- RAJA AKUN (rajaakun.web.id) SELESAI & TERVERIFIKASI BROWSER: 14 kategori, 47 produk, full SEO (metadata + JSON-LD + sitemap + robots + manifest + OG image), full animasi (framer-motion, marquee, parallax, counters, flash countdown, activity ticker), filter katalog penuh, mobile responsif, footer sticky, aksesibilitas ARIA
+- PUSATAKUN (pusatakun.web.id) SELESAI & TERVERIFIKASI BROWSER: 14 kategori, 47 produk, full SEO (metadata + JSON-LD + sitemap + robots + manifest + OG image), full animasi (framer-motion, marquee, parallax, counters, flash countdown, activity ticker), filter katalog penuh, mobile responsif, footer sticky, aksesibilitas ARIA
 
 ---
 Task ID: 6 & 7
@@ -131,7 +131,7 @@ Work Log:
 - API baru (semua force-dynamic): POST /api/auth/request-otp (rate limit 3/10mnt, balikin devCode saat demo + isNew), POST /api/auth/verify-otp (set cookie ra_session), POST /api/auth/profile (nama+role, ADMIN terkunci), GET /api/auth/me, POST /api/auth/logout; /api/listings GET (publik=APPROVED / ?mine=1 / ?admin=1&status=) + POST (buat listing PENDING, promosi otomatis BUYER->SELLER, kuota 50, validasi harga 5rb-500jt); /api/orders GET+POST (anti-spam 15 pesanan terbuka); PATCH /api/admin/listings (approve/reject/mark-sold/delete, ADMIN only).
 - src/lib/marketplace.ts SITE di-update: whatsapp 6281316516524 (+62 813-1651-6524, sekaligus ADMIN_PHONE), email rajaakun2026@gmail.com, company PT Digital Bisnis Manajemen + digiman.id, companySupport PT Top Konsultan Internasional + topkonsultan.web.id, address "Kantor PHI Kwitang, Kwitang, Senen, Jakarta Pusat, DKI Jakarta" (diambil dari situs topkonsultan), founder Gugun Gunara / alias Muhammad Lutfi Azmi / handles prabudanling & santri angon, socials[6] (fb bossdanling, x gunzz_krenzz, ig prabudanling, tiktok gunaracorp, threads prabudanling, reddit prabudanling). +orderWaLink, +listingWaLink, +DTO SellerListingDTO/OrderDTO/SellerStatsDTO + label status + initialsOf.
 - src/lib/seo.ts: keywords +13 (login whatsapp, daftar penjual, nama pendiri, PT, dst.), authors Gugun Gunara & Muhammad Lutfi Azmi, creator/publisher founder/company; organizationJsonLd +alternateName+founder+parentOrganization+address lengkap+email+sameAs 8 URL; personJsonLd() BARU (Person + knowsAbout + memberOf); page.tsx menambah blok JSON-LD Person (6 blok total).
-- UI BARU: store/auth-store.ts (user/status idle|loading|ready + authOpen/authMode/dashboard); components/rajaakun/auth-dialog.tsx (3 langkah: phone -> OTP InputOTP 6 slot dgn countdown 5:00 + resend 60s + kotak "Mode Demo" kode & salin + link WA admin -> profile: nama + kartu peran Pembeli/Penjual; reset penuh saat dialog tutup, countdown via interval yang hanya jalan saat open = hydration-safe); account-menu.tsx (AccountMenu dropdown + LoginButton + MobileAccountCard, badge peran); dashboard-seller.tsx (Sheet: 4 stat, form daftarkan akun w/ Select platform dari Category, preview formatIDR, daftar listing + badge status + catatan admin + tanya admin, info program komisi); dashboard-buyer.tsx (Sheet riwayat pesanan + tombol Bayar via WA / Tanya Admin, tanggal format manual anti-hydration); admin-panel.tsx (Sheet kurasi: tab filter status, Setujui/Tolak/Tandai Terjual/Hapus/Chat Penjual); seller-listings-section.tsx (section publik #studio-penjual: fetch /api/listings, grid kartu penjual terverifikasi, Dialog detail + escrow points, Beli -> belum login openAuth / sudah login POST /api/orders -> layar sukses kode pesanan + tombol WA admin; empty state CTA jadi penjual pertama).
+- UI BARU: store/auth-store.ts (user/status idle|loading|ready + authOpen/authMode/dashboard); components/pusatakun/auth-dialog.tsx (3 langkah: phone -> OTP InputOTP 6 slot dgn countdown 5:00 + resend 60s + kotak "Mode Demo" kode & salin + link WA admin -> profile: nama + kartu peran Pembeli/Penjual; reset penuh saat dialog tutup, countdown via interval yang hanya jalan saat open = hydration-safe); account-menu.tsx (AccountMenu dropdown + LoginButton + MobileAccountCard, badge peran); dashboard-seller.tsx (Sheet: 4 stat, form daftarkan akun w/ Select platform dari Category, preview formatIDR, daftar listing + badge status + catatan admin + tanya admin, info program komisi); dashboard-buyer.tsx (Sheet riwayat pesanan + tombol Bayar via WA / Tanya Admin, tanggal format manual anti-hydration); admin-panel.tsx (Sheet kurasi: tab filter status, Setujui/Tolak/Tandai Terjual/Hapus/Chat Penjual); seller-listings-section.tsx (section publik #studio-penjual: fetch /api/listings, grid kartu penjual terverifikasi, Dialog detail + escrow points, Beli -> belum login openAuth / sudah login POST /api/orders -> layar sukses kode pesanan + tombol WA admin; empty state CTA jadi penjual pertama).
 - Integrasi: navbar (tombol "Jual Akun" desktop + mobile sheet, LoginButton/AccountMenu swap by user state — render awal deterministik idle); home-client (fetchMe on mount, mount AuthDialog + 3 dashboard sheets + SellerListingsSection antara Katalog & WhyUs); footer ditulis ulang (kontak WA/email/alamat PT, baris "Sebuah layanan dari PT Digital Bisnis Manajemen", pill sosmed 6 platform rel="me", baris kredit support system + founder — halus tapi crawlable).
 - Fix: dashboard-seller import Store; catalog.tsx nomor WA hardcoded 6281234567890 -> waLink(); account-menu onClick openAuth arrow fn; mobile SheetContent +overflow-y-auto.
 - Data: prisma/scripts/add-faq.ts (+2 FAQ cara daftar pembeli/penjual, total 10; seed.ts disinkronkan); prisma/scripts/polish-samples.ts (penjual contoh "Raka Pratama" + 3 listing APPROVED realistis: IG 5K kuliner, TikTok 18K, MLBB Mythic).
@@ -162,7 +162,7 @@ Work Log:
 - ESLint: 0 error. tsc --noEmit: 0 error. dev.log: bersih (tanpa error/hydration).
 
 Stage Summary:
-- RAJA AKUN (rajaakun.web.id) versi baru TERVERIFIKASI PENUH via browser:
+- PUSATAKUN (pusatakun.web.id) versi baru TERVERIFIKASI PENUH via browser:
   1) Login WhatsApp OTP untuk pembeli & penjual (satu pintu, role selection, auto-admin utk nomor pemilik),
   2) Dashboard penjual (daftar akun -> kurasi admin -> tayang),
   3) Rak Penjual Terverifikasi publik + checkout pesanan ORD tercatat + lanjut WA,
@@ -180,7 +180,7 @@ Task: Halaman tunggal login/daftar/panel admin — SOLID, kontras maksimal, tanp
 
 Work Log:
 - Permintaan pemilik: login admin dashboard, login, dan daftar harus HALAMAN TUNGGAL (bukan dialog/Sheet), jangan transparan, tidak ada warna tumpang tindih yang mengaburkan, semua jelas.
-- BARU src/components/rajaakun/auth-shell.tsx ('use client'): AuthTopBar (bar solid + link silang), AuthBrandPanel (panel emas gradient SOLID from-amber-400 via-yellow-500 to-amber-600 + teks zinc-950 — kontras AAA; list benefit; kotak support WA hitam solid), StepTitle (subtitle ReactNode), StepDots (progres solid), PhoneField (input raw SOLID bg-muted border-2 — menjamin tak ada konflik bg-transparent milik ui/input), DevCodeBox (kotak KODE DEMO bg-primary SOLID + tombol salin hitam + link Hubungi Admin), OtpSlots (6 slot solid bg-muted; input nyata opacity-0 menutupi seluruh area supaya klik/tap fokus + mobile keyboard muncul; autoComplete one-time-code), ErrorBox (bg-destructive SOLID teks putih bold), RoleCards (kartu peran solid: terpilih = border-primary bg-accent), formatCountdown.
+- BARU src/components/pusatakun/auth-shell.tsx ('use client'): AuthTopBar (bar solid + link silang), AuthBrandPanel (panel emas gradient SOLID from-amber-400 via-yellow-500 to-amber-600 + teks zinc-950 — kontras AAA; list benefit; kotak support WA hitam solid), StepTitle (subtitle ReactNode), StepDots (progres solid), PhoneField (input raw SOLID bg-muted border-2 — menjamin tak ada konflik bg-transparent milik ui/input), DevCodeBox (kotak KODE DEMO bg-primary SOLID + tombol salin hitam + link Hubungi Admin), OtpSlots (6 slot solid bg-muted; input nyata opacity-0 menutupi seluruh area supaya klik/tap fokus + mobile keyboard muncul; autoComplete one-time-code), ErrorBox (bg-destructive SOLID teks putih bold), RoleCards (kartu peran solid: terpilih = border-primary bg-accent), formatCountdown.
 - BARU role-badges.tsx: ROLE_BADGE_LABELS (BUYER emerald-500, SELLER primary, ADMIN amber-400 — semua badge SOLID tanpa alpha) + Icon ref; dipakai login-page, admin-page, account-menu.
 - BARU /masuk (app/masuk/page.tsx + login-page.tsx): 3 langkah (phone -> OTP -> profile utk user baru); status sesi via fetchMe; kartu "Kamu sudah masuk!" saat sesi aktif (showLoggedIn = user && step!=='profile' — fix bug setUser menimpa langkah profil user baru); sukses existing -> toast + router.replace('/'); footer solid; link ke /daftar & /admin.
 - BARU /daftar (app/daftar/page.tsx + register-page.tsx): 4 langkah (peran -> phone -> OTP -> nama); pra-pilih peran dari ?peran=penjual (window.location.search di useEffect, tanpa useSearchParams); panel emas berubah konten sesuai peran; sukses -> toast + replace('/').
@@ -205,13 +205,13 @@ Stage Summary:
 ---
 Task ID: 4 (fix-hydration)
 Agent: Z.ai Code (main orchestrator)
-Task: Fix laporan error console "A tree hydrated but some attributes of the server rendered HTML didn't match" (React 19 useId/Radix hydration mismatch) pada homepage rajaakun.web.id
+Task: Fix laporan error console "A tree hydrated but some attributes of the server rendered HTML didn't match" (React 19 useId/Radix hydration mismatch) pada homepage pusatakun.web.id
 
 Work Log:
 - Menganalisis laporan error yang di-paste user (upload/Pasted Content_1792530669134.txt): seluruh ID Radix (Sheet, Select, Accordion) bergeser antara server (_R_4uaindlb_) dan client (_R_17iindlb_) — pola khas useId mismatch akibat pohon fiber berbeda, tanpa elemen DOM yang salah.
 - Audit statis seluruh komponen homepage (navbar, hero, trust-marquee, categories-section, catalog, seller-listings-section, why-us, how-it-works, testimonials, faq-section, cta-section, footer, floating, ticker): auth-store TIDAK dipersist (user=null di kedua sisi), countdown flash-sale mulai null (aman), ticker deterministik, format angka manual anti-locale — semua pola hydration-safe.
 - Verifikasi live via agent-browser: fresh load / , reload 2x, /masuk, /daftar, /admin → NOL error hydration. Kesimpulan: error user berasal dari sesi dev usang (tab lama bercampur bundle baru setelah refactor dialog->halaman tunggal di sesi sebelumnya); hard refresh sekali menghapusnya permanen.
-- Menghapus src/components/rajaakun/auth-dialog.tsx (kode mati — alur login modal lama yang dulu dikeluhkan user, sudah tidak diimpor siapa pun).
+- Menghapus src/components/pusatakun/auth-dialog.tsx (kode mati — alur login modal lama yang dulu dikeluhkan user, sudah tidak diimpor siapa pun).
 - Membuat src/lib/use-current-year.ts: hook useCurrentYear() berbasis useSyncExternalStore (server snapshot 2025 tetap, klien tahun berjalan) — pola resmi React untuk menghindari mismatch `new Date().getFullYear()`.
 - Menerapkan useCurrentYear() pada footer /masuk (login-page.tsx), /daftar (register-page.tsx), /admin (admin-page.tsx); footer.tsx di-refactor memakai hook yang sama.
 - Memperbaiki warning Next.js `scroll-behavior: smooth`: menambah data-scroll-behavior="smooth" pada <html> di app/layout.tsx.
@@ -248,7 +248,7 @@ Work Log:
 - Reproduksi verifikasi: klon repo, bun install, dev server, agent-browser viewport 732x709 (sama dgn screenshot user) -> panel filter sticky masih menampakkan bayangan judul kartu di belakangnya ("ium 4K UHD Private"). Pengukuran piksel: teks bleed lum ~25 vs bg panel ~20 (delta kecil tapi KELIHATAN di layar gelap; backdrop blur malah menyebar glow-nya).
 - AKAR MASALAH: alpha 96% memang selalu menyisakan 4% bleed — prinsip "near-opaque" ternyata belum cukup untuk permukaan fixed/sticky yang bergeser di atas konten terang (kartu emas/putih).
 - FIX DEFINITIF src/app/globals.css: .glass kini 100% SOLID oklch(0.185 0.014 70) tanpa alpha & tanpa backdrop-filter (tak berguna di atas solid) — satu perubahan memperbaiki 19 file komponen sekaligus (navbar scrolled, filter bar sticky katalog, drawer menu mobile, sheet detail produk, ticker, floating buttons, kartu hero, dsb). Nol bleed di browser apa pun.
-- Hapus src/components/rajaakun/auth-dialog.tsx (kode mati sisa refactor dialog->halaman tunggal; tidak ada import — verifikasi rg).
+- Hapus src/components/pusatakun/auth-dialog.tsx (kode mati sisa refactor dialog->halaman tunggal; tidak ada import — verifikasi rg).
 - tsconfig.json: exclude "examples" (folder scaffold template bawaan, socket.io tidak dipakai) supaya `tsc --noEmit` hijau penuh utk seluruh repo.
 - VERIFIKASI agent-browser (viewport user 732px): kartu produk scroll di bawah navbar + filter bar = SOLID sempurna, nol bayangan teks (dibandingkan side-by-side dgn posisi bug lama); drawer menu mobile solid; sheet detail produk solid; /masuk & /daftar tetap solid emas; semua route 200; console browser bersih; ESLint 0 error; tsc exit 0.
 
@@ -264,7 +264,7 @@ Task: Permintaan user — "buat halaman2 yang menurut standard internasional bel
 
 Work Log:
 - AUDIT: situs sebelumnya hanya punya /, /masuk, /daftar, /admin. Halaman produk tidak punya URL sendiri (hanya sheet), tidak ada halaman legal, tidak ada 404/error/loading kustom, footer/navbar tidak menautkan halaman bantuan.
-- INFRASTRUKTUR BARU: src/lib/page-data.ts (helper query server: kategori, produk by slug, produk terkait, slug sitemap); src/components/rajaakun/page-shell.tsx (shell bersama Navbar+Footer sticky+floating untuk semua subhalaman, sinkron sesi via fetchMe); page-hero.tsx (PageHero + Breadcrumbs server-safe); legal-article.tsx (kerangka artikel legal: daftar isi sticky anchor + LegalSection + LegalList + CTA bantuan).
+- INFRASTRUKTUR BARU: src/lib/page-data.ts (helper query server: kategori, produk by slug, produk terkait, slug sitemap); src/components/pusatakun/page-shell.tsx (shell bersama Navbar+Footer sticky+floating untuk semua subhalaman, sinkron sesi via fetchMe); page-hero.tsx (PageHero + Breadcrumbs server-safe); legal-article.tsx (kerangka artikel legal: daftar isi sticky anchor + LegalSection + LegalList + CTA bantuan).
 - BARU /produk/[slug]: halaman detail produk server-render — generateMetadata (judul+harga, canonical, OG/Twitter), JSON-LD Product (offer InStock/IDR, AggregateRating, seller) + BreadcrumbList 4 tingkat, deskripsi+spesifikasi, kotak beli sticky (harga, bar stok, Beli via WA, salin nama, bullet garansi), produk terkait satu kategori (klik = navigasi halaman). SEO: judul kartu produk di ProductCard kini Link crawlable ke /produk/[slug]; sheet detail produk dapat tombol "Halaman Produk Lengkap" + tautan S&K/Garansi.
 - BARU /katalog: katalog penuh dengan URL sendiri — sr-only h1, breadcrumb, JSON-LD Breadcrumb+ItemList, mendukung query ?kategori=<slug> & ?q= (diterapkan via catalog-store saat mount); komponen katalog asli dipakai ulang utuh.
 - BARU LEGAL (konten lengkap bahasa Indonesia, memakai data nyata SITE): /syarat-ketentuan (13 bab: definisi, akun, aturan pembeli/penjual, transaksi dibantu admin WA, garansi, larangan, penangguhan, batasan tanggung jawab, hukum RI: UU PDP 27/2022, UU ITE, UU PK 8/1999); /kebijakan-privasi (12 bab selaras UU PDP: data dikumpulkan, dasar pemrosesan, cookie ra_session httpOnly, berbagi data, keamanan, retensi, hak pengguna, anak, transfer, kontak); /garansi (janji garansi, masa garansi per tier Full 30 Hari/7 Hari/1 Hari, klaim 4 langkah kartu, ganti/refund, SLA waktu, kondisi pembatalan & luar cakupan, tips video serah terima).
@@ -292,9 +292,24 @@ Work Log:
 - API BARU: PATCH /api/orders (pembeli batalkan pesanan sendiri, hanya MENUNGGU_PEMBAYARAN); DELETE /api/listings?id= (penjual tarik listing sendiri, hanya PENDING/REJECTED); GET /api/admin/overview (19 agregat paralel: users/orders/GMV+komisi/listings/produk + 6 terbaru tiap entitas); GET+PATCH /api/admin/orders (lihat & ubah status semua pesanan); GET+PATCH /api/admin/users (daftar+cari pengguna, ubah peran; ADMIN tak bisa diubah & tak bisa ubah diri). Tipe DTO baru di lib/marketplace.ts: AdminOrderDTO, AdminUserDTO, AdminOverviewDTO, ADMIN_ORDER_STATUSES.
 - REWIRING: account-menu (dropdown + kartu mobile) -> tautan ke 3 dashboard; navbar "Jual Akun" -> router.push('/dashboard/penjual'); SellerCtaButtons -> /dashboard/penjual; login-page & register-page: setelah sukses masuk/daftar diarahkan ke dashboard sesuai peran (ADMIN/Pemilik -> pusat komando, SELLER -> toko, BUYER -> pesanan); footer Jelajah + "Dashboard Akun".
 - PEMBERSIHAN: hapus 4 file sheet mati (dashboard-buyer.tsx, dashboard-seller.tsx, admin-panel.tsx, admin-page.tsx 718 baris) — verifikasi rg tanpa import tersisa; auth-store dibersihkan (state dashboard/openDashboard/closeDashboard/authOpen/authMode dihapus); /admin kini redirect permanen ke /dashboard/admin (URL lama tetap hidup).
-- DATA DEMO: prisma/scripts/seed-demo-dashboard.ts (idempoten) — 4 pengguna demo (Budi/Sari pembeli, Dewa penjual, upsert pemilik Rajaakun2026 ADMIN), 6 listing semua status, 6 pesanan semua status (GMV demo Rp 300.000).
-- VERIFIKASI: eslint 0 error; tsc --noEmit exit 0; browser end-to-end 3 peran: login OTP demo Budi -> redirect /dashboard (KPI 3/1/2/Rp150.000 benar), Dewa -> /dashboard/penjual (dana 90% Rp1.665.000 + komisi Rp185.000 dari omzet Rp1.850.000 benar; form buka), Rajaakun2026 -> /dashboard/admin (9 pengguna, 11 pesanan, GMV, komisi, badge antrean); aksi nyata teruji: Setujui listing RA-DEMO01 (antrean kosong, KPI kurasi 1->0 live), ubah ORD-DEMO04 -> Diproses via dropdown, buat + batalkan ORD-EASP67 (hilang dari filter Menunggu Bayar, muncul Dibatalkan), baris pemilik tanpa dropdown; /admin -> /dashboard/admin redirect OK; viewport 390px: top bar + tab strip + KPI 2 kolom rapi; dev.log proyek bersih tanpa error runtime (error "createJSONStorage"/"WL-PROBE" berasal dari dev.log proyek scaffold terpisah, bukan pusatakun); semua rute baru 200.
+- DATA DEMO: prisma/scripts/seed-demo-dashboard.ts (idempoten) — 4 pengguna demo (Budi/Sari pembeli, Dewa penjual, upsert pemilik rajaakun2026 ADMIN), 6 listing semua status, 6 pesanan semua status (GMV demo Rp 300.000).
+- VERIFIKASI: eslint 0 error; tsc --noEmit exit 0; browser end-to-end 3 peran: login OTP demo Budi -> redirect /dashboard (KPI 3/1/2/Rp150.000 benar), Dewa -> /dashboard/penjual (dana 90% Rp1.665.000 + komisi Rp185.000 dari omzet Rp1.850.000 benar; form buka), rajaakun2026 -> /dashboard/admin (9 pengguna, 11 pesanan, GMV, komisi, badge antrean); aksi nyata teruji: Setujui listing RA-DEMO01 (antrean kosong, KPI kurasi 1->0 live), ubah ORD-DEMO04 -> Diproses via dropdown, buat + batalkan ORD-EASP67 (hilang dari filter Menunggu Bayar, muncul Dibatalkan), baris pemilik tanpa dropdown; /admin -> /dashboard/admin redirect OK; viewport 390px: top bar + tab strip + KPI 2 kolom rapi; dev.log proyek bersih tanpa error runtime (error "createJSONStorage"/"WL-PROBE" berasal dari dev.log proyek scaffold terpisah, bukan pusatakun); semua rute baru 200.
 
 Stage Summary:
 - Situs kini punya 3 area akun halaman penuh berbasis peran dengan satu bahasa desain royal gold: Pembeli mengelola belanja & pembatalan mandiri, Penjual membuka toko & memantau dana 90/10, Pemilik rajaakun2026 menguasai seluruh pasar (KPI, GMV, komisi, kurasi, pesanan, peran pengguna) dari satu pusat komando.
 - Semua navigasi (menu akun, navbar, footer, alur login/daftar) mengarahkan ke dashboard yang tepat otomatis; panel-sheet lama dihapus sehingga tidak ada duplikasi kode.
+
+## Task: Rebrand total Raja Akun → Pusatakun + Branding SEO/AEO ke Google, Bing & Mesin Pencari AI (2026-10-31)
+
+Permintaan user: "rubah semua nama rajaakun.web.id ... domain asli kita adalah pusatakun.web.id, brandingkan bisnisku pusatakun ke google bing dan semua mesin pencari dan mesin PENCARI AI buat mereka agar menjadikan website ini sebagai referensi yang terpercaya".
+
+- REBRAND SWEEP: folder src/components/rajaakun/ → src/components/pusatakun/ (git mv + semua import path); sed terurut di seluruh src + README + worklog: rajaakun.web.id→pusatakun.web.id, RajaAkun/Raja Akun/RAJA AKUN/raja akun→Pusatakun; akun pemilik rajaakun2026 (username admin + email) DIPROTEKSI dan tetap utuh.
+- SISATERsembunyi yang ditangkap QA browser: brand split JSX "Raja<span>Akun</span>" di navbar/auth-shell/dashboard-shell/footer → "Pusata<span>kun</span>"; kupon RAJA40→PUSATA40; kicker KATALOG RAJA→KATALOG PUSATAKUN; "Tokomu, raja"→"Tokomu, bos"; judul Tentang jadi "Pusat Segala + Akun Premium"; fallback nama 'Raja'→'Sobat'; loading "Memuat kerajaan akun"→"Memuat pusat akun"; globals.css header comment.
+- DATABASE SCRUB (prisma/scripts/db-rebrand.ts, idempoten): 3 FAQ + 1 testimoni + 1 listing lama ber-brand lama diperbarui; verifikasi 0 sisa di 47 produk/10 FAQ/8 testimoni/14 kategori; prisma/seed.ts + add-faq.ts dibersihkan agar re-seed tidak mengembalikan brand lama.
+- SEO/AEO BARU: robots.ts dirombak — aturan eksplisit Googlebot/Bingbot/DuckDuckBot/YandexBot/Applebot + 18 crawler mesin pencari AI (OAI-SearchBot, ChatGPT-User, GPTBot, ClaudeBot/-User/-SearchBot, PerplexityBot/-User, Google-Extended, GoogleOther, Applebot-Extended, meta-externalagent, FacebookBot, Amazonbot, Bytespider, MistralAI-User, YouBot); /admin,/api/,/dashboard ditutup dari indeks.
+- llms.txt + llms-full.txt (standar llmstxt.org untuk ChatGPT/Perplexity/Claude/Gemini): identitas, kredensial badan hukum, cara beli/jual, level akun, jaminan kepercayaan, kebijakan pengutipan; humans.txt lengkap.
+- IndexNow (protokol instant-indexing Bing/Yandex/Naver/Seznam): kunci public/2ee06ab558c32234ba2d2f5308197a00.txt + API /api/indexnow?key=...&url=... (validasi key + domain, POST ke api.indexnow.org) — ping katalog baru terindeks menit itu juga.
+- seo.ts: verification Google/Bing(msvalidate.01)/Yandex otomatis dari SITE.googleSiteVerification dll (isi kode Search Console/Bing Webmaster lalu meta muncul tanpa edit kode); JSON-LD graph upgrade — Organization @id + slogan + alternateName, WebSite @id + publisher @id.
+- OG IMAGE BARU: public/og-image.jpg 1200x630 di-regenerasi via PIL (scripts/make-og-image.py) — mahkota emas, PUSATAKUN gradient gold, tagline "Pusat Jual Beli Akun Premium #1 Indonesia", 4 chip trust, pill pusatakun.web.id.
+- Tagline SITE: "Raja Segala Marketplace Akun" → "Pusat Akun Premium #1 Indonesia"; initials fallback RA→PA; manifest PWA Pusatakun.
+- VERIFIKASI: eslint 0/0; tsc --noEmit bersih; semua route 200 (/,/katalog,/masuk,/daftar,/pusat-bantuan,/garansi,/tentang,/kontak,/syarat-ketentuan,/kebijakan-privasi,/dashboard,/admin, robots.txt, sitemap.xml, manifest.webmanifest, llms.txt, llms-full.txt, humans.txt, key IndexNow); /api/indexnow tanpa key = 403; HTML rendered 0 sisa "Raja Akun|rajaakun.web.id"; title browser "Pusatakun — ..."; screenshot home/katalog/flashsale/tentang bersih & konsisten royal gold.

@@ -1,5 +1,5 @@
 /**
- * RAJA AKUN — Sistem Autentikasi WhatsApp OTP
+ * PUSATAKUN — Sistem Autentikasi WhatsApp OTP
  * ============================================
  * Alur: nomor WhatsApp -> kode OTP 6 digit -> sesi cookie httpOnly.
  *
@@ -106,7 +106,7 @@ export async function sendOtpViaWhatsapp(phone: string, code: string): Promise<b
       },
       body: JSON.stringify({
         target: phone,
-        message: `*Raja Akun* (rajaakun.web.id)\n\nKode login kamu: *${code}*\n\nBerlaku ${OTP_TTL_MINUTES} menit. Jangan bagikan kode ini ke siapa pun, termasuk admin.`,
+        message: `*Pusatakun* (pusatakun.web.id)\n\nKode login kamu: *${code}*\n\nBerlaku ${OTP_TTL_MINUTES} menit. Jangan bagikan kode ini ke siapa pun, termasuk admin.`,
       }),
     })
     return res.ok

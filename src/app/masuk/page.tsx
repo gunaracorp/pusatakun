@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { LoginPage } from '@/components/rajaakun/login-page'
+import { LoginPage } from '@/components/pusatakun/login-page'
 import { SITE } from '@/lib/marketplace'
 
 export const metadata: Metadata = {
   title: 'Masuk dengan WhatsApp',
   description:
-    'Masuk ke Raja Akun dengan nomor WhatsApp — kode verifikasi 6 digit instan, tanpa kata sandi. Satu akun untuk beli & jual akun media sosial bergaransi di ' +
+    'Masuk ke Pusatakun dengan nomor WhatsApp — kode verifikasi 6 digit instan, tanpa kata sandi. Satu akun untuk beli & jual akun media sosial bergaransi di ' +
     SITE.domain +
     '.',
   alternates: {

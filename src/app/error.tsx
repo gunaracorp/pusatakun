@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * RAJA AKUN — Error boundary global (client).
+ * PUSATAKUN — Error boundary global (client).
  * Dirender saat terjadi error runtime yang tidak tertangani.
  */
 
@@ -19,7 +19,7 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     // Catat ke console agar terlihat di log server/client debugging.
-    console.error('[RajaAkun Error Boundary]', error)
+    console.error('[Pusatakun Error Boundary]', error)
   }, [error])
 
   return (
@@ -62,7 +62,7 @@ export default function GlobalError({
           </div>
 
           <a
-            href={waLink('Halo Admin Raja Akun! Saya menemukan error di situs ini.')}
+            href={waLink('Halo Admin Pusatakun! Saya menemukan error di situs ini.')}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 inline-flex min-h-[44px] items-center text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"

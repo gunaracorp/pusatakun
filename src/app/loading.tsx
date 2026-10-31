@@ -1,5 +1,5 @@
 /**
- * RAJA AKUN — Skeleton pemuatan rute (brand royal dark gold).
+ * PUSATAKUN — Skeleton pemuatan rute (brand royal dark gold).
  */
 
 export default function Loading() {
@@ -21,7 +21,7 @@ export default function Loading() {
             <span className="h-2 w-2 animate-bounce rounded-full bg-primary [animation-delay:300ms]" />
           </div>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-            Memuat kerajaan akun...
+            Memuat pusat akun...
           </p>
         </div>
       </div>

@@ -1,9 +1,8 @@
 /**
- * RAJA AKUN — SEO Infrastructure
+ * PUSATAKUN — SEO Infrastructure
  * Metadata + JSON-LD structured data builders (schema.org).
  * Semua konten dalam Bahasa Indonesia, brand dark royal gold.
  */
-
 import type { Metadata } from 'next'
 import { SITE } from '@/lib/marketplace'
 import type { FaqDTO, ProductDTO } from '@/lib/marketplace'
@@ -12,18 +11,18 @@ import type { FaqDTO, ProductDTO } from '@/lib/marketplace'
 
 const SITE_URL = SITE.url
 const OG_IMAGE = '/og-image.jpg'
-const OG_IMAGE_ALT = 'Raja Akun — Marketplace Jual Beli Akun Terlengkap'
+const OG_IMAGE_ALT = 'Pusatakun — Pusat Jual Beli Akun Premium #1 Indonesia'
 
 const META_TITLE =
-  'Raja Akun — Marketplace Jual Beli Akun Media Sosial Terlengkap & Terpercaya #1 Indonesia'
+  'Pusatakun — Marketplace Jual Beli Akun Media Sosial Terlengkap & Terpercaya #1 Indonesia'
 
 const META_DESCRIPTION =
-  'Raja Akun (rajaakun.web.id) adalah marketplace jual beli akun media sosial terlengkap dan ' +
+  'Pusatakun (pusatakun.web.id) adalah marketplace jual beli akun media sosial terlengkap dan ' +
   'terpercaya #1 di Indonesia. Jual akun Instagram, TikTok, YouTube, Facebook, Twitter/X, ' +
   'Telegram, akun game Mobile Legends, Free Fire, Genshin Impact, hingga akun Netflix & Spotify. ' +
   'Akun murah bergaransi penuh, proses instan 5–15 menit, transaksi aman via rekening terjamin, ' +
   'dan customer service 24/7 siap membantu. Toko akun terpercaya untuk kebutuhan jual beli akun ' +
-  'premium — cek katalog lengkapnya sekarang di rajaakun.web.id!'
+  'premium — cek katalog lengkapnya sekarang di pusatakun.web.id!'
 
 const META_KEYWORDS = [
   'jual akun',
@@ -50,9 +49,9 @@ const META_KEYWORDS = [
   'akun bergaransi',
   'akun murah bergaransi',
   'jual akun aman',
-  'raja akun',
-  'rajaakun',
-  'rajaakun web id',
+  'pusatakun',
+  'pusatakun',
+  'pusatakun web id',
   'toko akun',
   'agen akun',
   'reseller akun',
@@ -85,7 +84,7 @@ export function buildHomeMetadata(): Metadata {
     metadataBase: new URL(SITE_URL),
     title: {
       default: META_TITLE,
-      template: '%s | Raja Akun',
+      template: '%s | Pusatakun',
     },
     description: META_DESCRIPTION,
     keywords: [...META_KEYWORDS],
@@ -136,7 +135,23 @@ export function buildHomeMetadata(): Metadata {
     formatDetection: {
       telephone: false,
     },
+    verification: buildVerification(),
   }
+}
+
+/**
+ * Meta verifikasi mesin pencari. Isi SITE.googleSiteVerification /
+ * SITE.bingSiteVerification / SITE.yandexVerification lalu tag meta
+ * otomatis muncul di <head> tanpa perlu edit kode lagi.
+ */
+function buildVerification(): Metadata['verification'] {
+  const verification: NonNullable<Metadata['verification']> = {}
+  if (SITE.googleSiteVerification) verification.google = SITE.googleSiteVerification
+  if (SITE.bingSiteVerification) {
+    verification.other = { 'msvalidate.01': SITE.bingSiteVerification }
+  }
+  if (SITE.yandexVerification) verification.yandex = SITE.yandexVerification
+  return Object.keys(verification).length > 0 ? verification : undefined
 }
 
 // ============ JSON-LD builders ============
@@ -164,15 +179,17 @@ export function organizationJsonLd(): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${SITE_URL}/#organization`,
     name: SITE.name,
-    alternateName: ['RajaAkun', 'Raja Akun Indonesia'],
+    alternateName: ['Pusatakun', 'Pusatakun.web.id', 'Pusat Akun', 'Pusat Akun Premium'],
     url: SITE_URL,
     logo: `${SITE_URL}/icon.svg`,
     email: SITE.email,
     description:
-      'Raja Akun (rajaakun.web.id) — marketplace jual beli akun media sosial, game, dan ' +
+      'Pusatakun (pusatakun.web.id) — marketplace jual beli akun media sosial, game, dan ' +
       'streaming terlengkap & terpercaya se-Indonesia. Akun murah bergaransi, proses instan, ' +
       'support 24/7.',
+    slogan: SITE.tagline,
     foundingDate: '2021',
     founder: personRef(),
     parentOrganization: {
@@ -231,7 +248,7 @@ export function personJsonLd(): Record<string, unknown> {
     '@context': 'https://schema.org',
     ...personRef(),
     description:
-      `${SITE.founder} (${SITE.founderAlias}) — founder Raja Akun, arsitek digital di balik ` +
+      `${SITE.founder} (${SITE.founderAlias}) — founder Pusatakun, arsitek digital di balik ` +
       `${SITE.company} dan ekosistem ${SITE.companySupport}. Dikenal juga sebagai ` +
       `${SITE.founderHandles.join(' & ')}.`,
     knowsAbout: [
@@ -253,11 +270,14 @@ export function websiteJsonLd(): Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
     name: SITE.name,
+    alternateName: 'Pusat Akun Premium',
     url: SITE_URL,
     description:
       'Marketplace jual beli akun media sosial, game, dan streaming terlengkap se-Indonesia.',
     inLanguage: 'id-ID',
+    publisher: { '@id': `${SITE_URL}/#organization` },
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_URL}/?q={search_term_string}`,
@@ -285,7 +305,7 @@ export function productListJsonLd(products: ProductDTO[]): Record<string, unknow
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Katalog Akun Raja Akun',
+    name: 'Katalog Akun Pusatakun',
     numberOfItems: products.length,
     itemListElement: products.map((product, index) => ({
       '@type': 'ListItem',
@@ -298,7 +318,7 @@ export function productListJsonLd(products: ProductDTO[]): Record<string, unknow
         category: product.categoryName,
         brand: {
           '@type': 'Brand',
-          name: 'Raja Akun',
+          name: 'Pusatakun',
         },
         offers: {
           '@type': 'Offer',
@@ -329,7 +349,7 @@ export function productJsonLd(product: ProductDTO): Record<string, unknown> {
     description: product.description,
     image: `${SITE_URL}${OG_IMAGE}`,
     category: product.categoryName,
-    brand: { '@type': 'Brand', name: 'Raja Akun' },
+    brand: { '@type': 'Brand', name: 'Pusatakun' },
     sku: product.slug,
     offers: {
       '@type': 'Offer',

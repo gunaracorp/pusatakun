@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { DashboardGuard } from '@/components/rajaakun/dashboard-guard'
-import { BuyerDashboard } from '@/components/rajaakun/dashboard-buyer-page'
+import { DashboardGuard } from '@/components/pusatakun/dashboard-guard'
+import { BuyerDashboard } from '@/components/pusatakun/dashboard-buyer-page'
 
 /**
  * /dashboard — Dashboard Pembeli (area akun).
  * Tidak diindeks mesin pencari.
  */
 export const metadata: Metadata = {
-  title: 'Dashboard Pembeli — Raja Akun',
+  title: 'Dashboard Pembeli — Pusatakun',
   robots: {
     index: false,
     follow: false,

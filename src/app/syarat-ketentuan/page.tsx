@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { PageHero } from '@/components/rajaakun/page-hero'
-import { LegalArticle, LegalList, LegalSection, type TocItem } from '@/components/rajaakun/legal-article'
-import { PageShell } from '@/components/rajaakun/page-shell'
+import { PageHero } from '@/components/pusatakun/page-hero'
+import { LegalArticle, LegalList, LegalSection, type TocItem } from '@/components/pusatakun/legal-article'
+import { PageShell } from '@/components/pusatakun/page-shell'
 import { SITE } from '@/lib/marketplace'
 import { getPageCategories } from '@/lib/page-data'
 
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Syarat & Ketentuan',
   description:
-    'Syarat & Ketentuan penggunaan marketplace Raja Akun (rajaakun.web.id) — aturan pembeli, aturan penjual, proses transaksi bergaransi, kewajiban para pihak, dan ketentuan hukum yang berlaku di Indonesia.',
+    'Syarat & Ketentuan penggunaan marketplace Pusatakun (pusatakun.web.id) — aturan pembeli, aturan penjual, proses transaksi bergaransi, kewajiban para pihak, dan ketentuan hukum yang berlaku di Indonesia.',
   alternates: { canonical: '/syarat-ketentuan' },
   robots: { index: true, follow: true },
 }
@@ -51,7 +51,7 @@ export default async function SyaratKetentuanPage() {
           </p>
           <LegalList
             items={[
-              <><strong>&ldquo;Raja Akun&rdquo;</strong> — layanan marketplace jual beli akun digital (media sosial, game, streaming, dan lainnya) yang dioperasikan oleh {SITE.company} pada domain {SITE.domain}.</>,
+              <><strong>&ldquo;Pusatakun&rdquo;</strong> — layanan marketplace jual beli akun digital (media sosial, game, streaming, dan lainnya) yang dioperasikan oleh {SITE.company} pada domain {SITE.domain}.</>,
               <><strong>&ldquo;Kami&rdquo;</strong> — {SITE.company} selaku penyelenggara platform, beserta tim admin yang melayani proses transaksi.</>,
               <><strong>&ldquo;Pengguna&rdquo;</strong> — setiap orang yang mengakses situs, baik pembeli, penjual, maupun pengunjung biasa.</>,
               <><strong>&ldquo;Pembeli&rdquo;</strong> — pengguna yang membeli akun/produk digital melalui layanan kami.</>,
@@ -63,7 +63,7 @@ export default async function SyaratKetentuanPage() {
 
         <LegalSection id="ketentuan-umum" title="2. Ketentuan Umum">
           <p>
-            Layanan Raja Akun tersedia bagi kamu yang berusia minimal 13 tahun. Pengguna di bawah 18 tahun
+            Layanan Pusatakun tersedia bagi kamu yang berusia minimal 13 tahun. Pengguna di bawah 18 tahun
             wajib mendapat izin dan pendampingan orang tua/wali untuk setiap transaksi. Kamu menyatakan
             bahwa seluruh data yang kamu berikan (termasuk nomor WhatsApp) adalah data yang benar dan
             milik kamu sendiri.
@@ -76,7 +76,7 @@ export default async function SyaratKetentuanPage() {
 
         <LegalSection id="akun-pengguna" title="3. Akun Pengguna">
           <p>
-            Registrasi dan masuk ke Raja Akun menggunakan nomor WhatsApp dengan kode verifikasi (OTP)
+            Registrasi dan masuk ke Pusatakun menggunakan nomor WhatsApp dengan kode verifikasi (OTP)
             6 digit — tanpa kata sandi. Setiap pengguna bertanggung jawab penuh untuk:
           </p>
           <LegalList
@@ -96,7 +96,7 @@ export default async function SyaratKetentuanPage() {
           <LegalList
             items={[
               'Membaca detail produk (deskripsi, spesifikasi, level, masa garansi) sebelum membeli; sifat akun digital adalah produk yang sudah dilihat isi/aksesnya tidak dapat dikembalikan hanya karena berubah pikiran.',
-              'Melakukan pembayaran hanya melalui instruksi resmi admin Raja Akun — kami tidak pernah meminta pembayaran di luar kanal yang dikonfirmasi admin.',
+              'Melakukan pembayaran hanya melalui instruksi resmi admin Pusatakun — kami tidak pernah meminta pembayaran di luar kanal yang dikonfirmasi admin.',
               'Merekam video saat menerima data akun (dari proses login pertama hingga pemeriksaan) sebagai bukti klaim garansi;',
               'Mengubah seluruh data keamanan akun (kata sandi, email pemulihan, nomor terikat) segera setelah akun diterima, sesuai panduan admin;',
               'Tidak menjual ulang akun dengan cara yang melanggar ketentuan platform asal.',
@@ -127,7 +127,7 @@ export default async function SyaratKetentuanPage() {
 
         <LegalSection id="transaksi" title="6. Proses Transaksi">
           <p>
-            Seluruh transaksi dibantu dan dipandu admin Raja Akun melalui WhatsApp resmi{' '}
+            Seluruh transaksi dibantu dan dipandu admin Pusatakun melalui WhatsApp resmi{' '}
             {SITE.whatsappDisplay} agar terdokumentasi dengan baik. Alur standarnya:
           </p>
           <LegalList

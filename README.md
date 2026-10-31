@@ -1,6 +1,6 @@
-# RAJA AKUN — rajaakun.web.id
+# PUSATAKUN — pusatakun.web.id
 
-> **Raja Segala Marketplace Akun** — Website jual beli akun media sosial, game & streaming
+> **Pusat Akun Premium #1 Indonesia** — Website jual beli akun media sosial, game & streaming
 > terlengkap se-Indonesia. Full SEO mesin pencari · Full animasi · Login WhatsApp OTP ·
 > Marketplace penjual terverifikasi · Escrow & garansi.
 
@@ -10,7 +10,7 @@
 
 | Aspek | Nilai |
 | --- | --- |
-| **Brand** | Raja Akun (`rajaakun.web.id`) |
+| **Brand** | Pusatakun (`pusatakun.web.id`) |
 | **Badan hukum** | **PT Digital Bisnis Manajemen** |
 | **Situs grup** | [digiman.id](https://digiman.id) |
 | **Support system** | **PT Top Konsultan Internasional** — [topkonsultan.web.id](https://topkonsultan.web.id) |
@@ -40,7 +40,7 @@
 
 ## 2. Fitur Utama
 
-### 2.1 Katalog akun resmi (Raja Akun Official)
+### 2.1 Katalog akun resmi (Pusatakun Official)
 - 14 kategori: Instagram, TikTok, YouTube, Facebook, Twitter/X, Telegram, WhatsApp,
   Email/Gmail, LinkedIn, Discord, Akun Game, Streaming, Marketplace, Lainnya.
 - Filter lengkap: pencarian, kategori, level (FRESH/AMAN/PREMIUM/MONETIZE), rentang harga,
@@ -167,7 +167,7 @@ src/
 │     ├─ orders/route.ts          # GET milik pembeli · POST buat pesanan
 │     ├─ admin/listings/route.ts  # PATCH kurasi (approve/reject/sold/delete)
 │     └─ products|categories|stats|testimonials|faqs/route.ts
-├─ components/rajaakun/       # 20+ komponen (hero, katalog, auth-shell, login/register/
+├─ components/pusatakun/       # 20+ komponen (hero, katalog, auth-shell, login/register/
 │                             #  admin-page, dashboards solid, navbar, footer, ...)
 ├─ lib/
 │  ├─ auth.ts                 # OTP, sesi, normalisasi WA, ADMIN_PHONE, guard
@@ -244,8 +244,8 @@ ke WhatsApp pengguna. Tanpa env → **Mode Demo** (kode muncul di dialog untuk p
 - [ ] SMTP/forwarder untuk `rajaakun2026@gmail.com` agar notifikasi email listing masuk.
 - [ ] Ganti SQLite → Postgres bila trafik besar (schema Prisma sudah kompatibel).
 - [ ] Aktifkan backup harian `db/custom.db`.
-- [ ] CNAME `rajaakun.web.id` → hosting, pastikan HTTPS aktif (sitemap sudah `https://rajaakun.web.id`).
-- [ ] Submit `https://rajaakun.web.id/sitemap.xml` ke Google Search Console & Bing.
+- [ ] CNAME `pusatakun.web.id` → hosting, pastikan HTTPS aktif (sitemap sudah `https://pusatakun.web.id`).
+- [ ] Submit `https://pusatakun.web.id/sitemap.xml` ke Google Search Console & Bing.
 - [ ] Verifikasi properti di Google & tempel meta verifikasi bila diminta.
 
 ---

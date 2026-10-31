@@ -52,7 +52,7 @@ export default function NotFound() {
               Cari jawaban di Pusat Bantuan
             </Link>
             <a
-              href={waLink('Halo Admin Raja Akun! Saya menemukan halaman error 404 di situs ini.')}
+              href={waLink('Halo Admin Pusatakun! Saya menemukan halaman error 404 di situs ini.')}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"

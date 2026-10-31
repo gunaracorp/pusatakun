@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { RegisterPage } from '@/components/rajaakun/register-page'
+import { RegisterPage } from '@/components/pusatakun/register-page'
 import { SITE } from '@/lib/marketplace'
 
 export const metadata: Metadata = {

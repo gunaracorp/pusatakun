@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { CheckCircle2, Camera, Clock, MessageCircle, RefreshCcw, ShieldCheck, Video, Wallet } from 'lucide-react'
-import { PageHero } from '@/components/rajaakun/page-hero'
-import { LegalArticle, LegalList, LegalSection, type TocItem } from '@/components/rajaakun/legal-article'
-import { PageShell } from '@/components/rajaakun/page-shell'
+import { PageHero } from '@/components/pusatakun/page-hero'
+import { LegalArticle, LegalList, LegalSection, type TocItem } from '@/components/pusatakun/legal-article'
+import { PageShell } from '@/components/pusatakun/page-shell'
 import { SITE, waLink } from '@/lib/marketplace'
 import { getPageCategories } from '@/lib/page-data'
 
@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Kebijakan Garansi & Pengembalian',
   description:
-    'Kebijakan garansi Raja Akun — masa garansi tiap jenis akun, cara klaim langkah demi langkah, pilihan penggantian akun atau pengembalian dana, serta kondisi yang membatalkan garansi.',
+    'Kebijakan garansi Pusatakun — masa garansi tiap jenis akun, cara klaim langkah demi langkah, pilihan penggantian akun atau pengembalian dana, serta kondisi yang membatalkan garansi.',
   alternates: { canonical: '/garansi' },
   robots: { index: true, follow: true },
 }
@@ -66,7 +66,7 @@ export default async function GaransiPage() {
         kicker="PROTEKSI PEMBELI"
         title="Kebijakan Garansi &"
         highlight="Pengembalian"
-        description="Setiap akun di Raja Akun dibeli bersama garansi tertulis di halaman produknya. Di halaman ini kamu bisa melihat masa garansi, cara klaim, pilihan ganti rugi, dan kondisi yang perlu kamu hindari."
+        description="Setiap akun di Pusatakun dibeli bersama garansi tertulis di halaman produknya. Di halaman ini kamu bisa melihat masa garansi, cara klaim, pilihan ganti rugi, dan kondisi yang perlu kamu hindari."
         breadcrumb={[{ label: 'Kebijakan Garansi & Pengembalian' }]}
       />
 
@@ -200,7 +200,7 @@ export default async function GaransiPage() {
         <LegalSection id="kontak" title="8. Kontak Klaim">
           <p>
             Ajukan klaim atau pertanyaan garansi melalui WhatsApp resmi{' '}
-            <a href={waLink('Halo Admin Raja Akun! Saya ingin klaim garansi untuk pesanan saya.')} target="_blank" rel="noopener noreferrer">
+            <a href={waLink('Halo Admin Pusatakun! Saya ingin klaim garansi untuk pesanan saya.')} target="_blank" rel="noopener noreferrer">
               {SITE.whatsappDisplay}
             </a>{' '}
             (online 24/7) atau email {SITE.email}. Ketentuan umum transaksi tetap merujuk pada{' '}

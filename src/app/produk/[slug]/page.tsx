@@ -12,14 +12,14 @@ import {
   Store,
   Zap,
 } from 'lucide-react'
-import { PageShell } from '@/components/rajaakun/page-shell'
-import { Breadcrumbs } from '@/components/rajaakun/page-hero'
-import { Reveal } from '@/components/rajaakun/motion-primitives'
+import { PageShell } from '@/components/pusatakun/page-shell'
+import { Breadcrumbs } from '@/components/pusatakun/page-hero'
+import { Reveal } from '@/components/pusatakun/motion-primitives'
 import {
   CopyNameButton,
   HotBadge,
   RelatedProducts,
-} from '@/components/rajaakun/product-page-client'
+} from '@/components/pusatakun/product-page-client'
 import { SITE, discountPercent, formatCompact, formatIDR, waLink } from '@/lib/marketplace'
 import {
   getCategoryIdBySlug,
@@ -82,7 +82,7 @@ export default async function ProdukDetailPage({ params }: Props) {
 
   const discount = discountPercent(product.price, product.oldPrice)
   const buyLink = waLink(
-    `Halo Admin Raja Akun! Saya mau beli produk "${product.name}" seharga ${formatIDR(product.price)}. Masih ready? Mohon diproses ya.`,
+    `Halo Admin Pusatakun! Saya mau beli produk "${product.name}" seharga ${formatIDR(product.price)}. Masih ready? Mohon diproses ya.`,
   )
   const stockRatio = product.totalStock > 0 ? product.stock / product.totalStock : 0
   const stockTone =

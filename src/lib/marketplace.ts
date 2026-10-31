@@ -1,11 +1,11 @@
 export const SITE = {
-  name: 'Raja Akun',
-  shortName: 'RajaAkun',
-  domain: 'rajaakun.web.id',
-  url: 'https://rajaakun.web.id',
-  tagline: 'Raja Segala Marketplace Akun',
+  name: 'Pusatakun',
+  shortName: 'Pusatakun',
+  domain: 'pusatakun.web.id',
+  url: 'https://pusatakun.web.id',
+  tagline: 'Pusat Akun Premium #1 Indonesia',
   description:
-    'Raja Akun (rajaakun.web.id) — Marketplace jual beli akun media sosial terlengkap, termurah & terpercaya se-Indonesia. Akun Instagram, TikTok, YouTube, Facebook, dan 100+ jenis akun lainnya. Garansi penuh, pengiriman instan 5-15 menit, support 24/7.',
+    'Pusatakun (pusatakun.web.id) — Marketplace jual beli akun media sosial terlengkap, termurah & terpercaya se-Indonesia. Akun Instagram, TikTok, YouTube, Facebook, dan 100+ jenis akun lainnya. Garansi penuh, pengiriman instan 5-15 menit, support 24/7.',
   // Kontak resmi (aktif, dijawab pemilik langsung)
   whatsapp: '6281316516524',
   whatsappDisplay: '+62 813-1651-6524',
@@ -22,6 +22,11 @@ export const SITE = {
   founderAlias: 'Muhammad Lutfi Azmi',
   founderHandles: ['prabudanling', 'santri angon'],
   founded: 2021,
+  // Kode verifikasi mesin pencari — isi dari Google Search Console, Bing Webmaster
+  // Tools & Yandex Webmaster, lalu metadata verification otomatis terpasang.
+  googleSiteVerification: '',
+  bingSiteVerification: '',
+  yandexVerification: '',
   // Sosial media resmi entitas founder (rel="me" untuk entity SEO)
   socials: [
     { id: 'facebook', label: 'Facebook', handle: 'bossdanling', url: 'https://www.facebook.com/bossdanling' },
@@ -39,13 +44,13 @@ export const waLink = (message: string) =>
 /** Link chat WA untuk konfirmasi pesanan (dibawa admin 24/7). */
 export const orderWaLink = (orderCode: string, productName: string, buyerName: string) =>
   waLink(
-    `Halo Admin Raja Akun! Saya ${buyerName || 'pembeli'} sudah membuat pesanan *${orderCode}* untuk produk *${productName}*. Mohon dibantu proses pembayaran & pengirimannya ya. Terima kasih!`,
+    `Halo Admin Pusatakun! Saya ${buyerName || 'pembeli'} sudah membuat pesanan *${orderCode}* untuk produk *${productName}*. Mohon dibantu proses pembayaran & pengirimannya ya. Terima kasih!`,
   )
 
 /** Link chat WA untuk kurasi listing penjual. */
 export const listingWaLink = (listingCode: string, title: string, sellerName: string) =>
   waLink(
-    `Halo Admin Raja Akun! Saya ${sellerName || 'penjual'} baru saja mendaftarkan akun *${title}* (kode ${listingCode}). Mohon dicek & dikurasi ya. Terima kasih!`,
+    `Halo Admin Pusatakun! Saya ${sellerName || 'penjual'} baru saja mendaftarkan akun *${title}* (kode ${listingCode}). Mohon dicek & dikurasi ya. Terima kasih!`,
   )
 
 export const LEVELS = ['Semua', 'FRESH', 'AMAN', 'PREMIUM', 'MONETIZE'] as const
@@ -223,9 +228,9 @@ export const ADMIN_ORDER_STATUSES: OrderStatus[] = [
 ]
 
 export function initialsOf(name: string | null): string {
-  if (!name) return 'RA'
+  if (!name) return 'PA'
   const parts = name.trim().split(/\s+/).slice(0, 2)
-  return parts.map((p) => p[0]?.toUpperCase() ?? '').join('') || 'RA'
+  return parts.map((p) => p[0]?.toUpperCase() ?? '').join('') || 'PA'
 }
 
 // Safe deterministic formatting (no Intl on client => no hydration mismatch)

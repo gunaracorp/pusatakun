@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { PageHero } from '@/components/rajaakun/page-hero'
-import { LegalArticle, LegalList, LegalSection, type TocItem } from '@/components/rajaakun/legal-article'
-import { PageShell } from '@/components/rajaakun/page-shell'
+import { PageHero } from '@/components/pusatakun/page-hero'
+import { LegalArticle, LegalList, LegalSection, type TocItem } from '@/components/pusatakun/legal-article'
+import { PageShell } from '@/components/pusatakun/page-shell'
 import { SITE } from '@/lib/marketplace'
 import { getPageCategories } from '@/lib/page-data'
 
@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Kebijakan Privasi',
   description:
-    'Kebijakan Privasi Raja Akun (rajaakun.web.id) — data apa yang kami kumpulkan, untuk apa, bagaimana kami melindunginya, serta hak-hakmu sesuai UU Pelindungan Data Pribadi No. 27 Tahun 2022.',
+    'Kebijakan Privasi Pusatakun (pusatakun.web.id) — data apa yang kami kumpulkan, untuk apa, bagaimana kami melindunginya, serta hak-hakmu sesuai UU Pelindungan Data Pribadi No. 27 Tahun 2022.',
   alternates: { canonical: '/kebijakan-privasi' },
   robots: { index: true, follow: true },
 }

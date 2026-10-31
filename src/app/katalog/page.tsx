@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { PageShell } from '@/components/rajaakun/page-shell'
-import { Breadcrumbs } from '@/components/rajaakun/page-hero'
-import { KatalogClient } from '@/components/rajaakun/katalog-client'
+import { PageShell } from '@/components/pusatakun/page-shell'
+import { Breadcrumbs } from '@/components/pusatakun/page-hero'
+import { KatalogClient } from '@/components/pusatakun/katalog-client'
 import { SITE } from '@/lib/marketplace'
 import {
   getCatalogInitialProducts,
@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Katalog Akun — Semua Produk Bergaransi',
   description:
-    'Katalog lengkap Raja Akun: 47+ jenis akun Instagram, TikTok, YouTube, Facebook, Telegram, WhatsApp, Gmail, Discord, game ML/FF/Genshin, hingga Netflix & Spotify. Filter kategori, level keamanan, dan harga. Semua bergaransi & ready stok.',
+    'Katalog lengkap Pusatakun: 47+ jenis akun Instagram, TikTok, YouTube, Facebook, Telegram, WhatsApp, Gmail, Discord, game ML/FF/Genshin, hingga Netflix & Spotify. Filter kategori, level keamanan, dan harga. Semua bergaransi & ready stok.',
   alternates: { canonical: '/katalog' },
   robots: { index: true, follow: true },
 }

@@ -8,7 +8,7 @@ import {
   websiteJsonLd,
 } from '@/lib/seo'
 import type { CategoryDTO, FaqDTO, ProductDTO, StatsDTO, TestimonialDTO } from '@/lib/marketplace'
-import { HomeClient } from '@/components/rajaakun/home-client'
+import { HomeClient } from '@/components/pusatakun/home-client'
 
 export const dynamic = 'force-dynamic'
 

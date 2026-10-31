@@ -1,5 +1,5 @@
 /**
- * RAJA AKUN — Server data helpers untuk halaman-halaman statis/SEO.
+ * PUSATAKUN — Server data helpers untuk halaman-halaman statis/SEO.
  * Semua query langsung ke Prisma (pola sama dengan src/app/page.tsx).
  */
 

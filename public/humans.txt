@@ -1,0 +1,35 @@
+/* humans.txt — orang-orang di balik pusatakun.web.id */
+
+SITE:
+	Name: Pusatakun
+	Tagline: Pusat Akun Premium #1 Indonesia
+	Domain: pusatakun.web.id
+	Sejak: 2021
+	Bahasa: Bahasa Indonesia
+
+COMPANY:
+	Nama: PT Digital Bisnis Manajemen
+	Situs: https://digiman.id
+	Alamat: Kantor PHI Kwitang, Kwitang, Senen, Jakarta Pusat, DKI Jakarta, Indonesia
+	Support system: PT Top Konsultan Internasional (https://topkonsultan.web.id)
+
+TEAM:
+	Founder & Chief Architect: Gugun Gunara (a.k.a. Muhammad Lutfi Azmi)
+	Admin & Kurasi: Tim Admin Pusatakun (24/7)
+
+CONTACT:
+	WhatsApp: +62 813-1651-6524 (manusia asli, 24/7)
+	Email: rajaakun2026@gmail.com
+	Facebook: https://www.facebook.com/bossdanling
+	X: https://x.com/gunzz_krenzz
+	Instagram: https://www.instagram.com/prabudanling
+	TikTok: https://www.tiktok.com/@gunaracorp
+	Threads: https://www.threads.com/@prabudanling
+	Reddit: https://www.reddit.com/user/prabudanling/
+
+TECH:
+	Framework: Next.js (App Router) + TypeScript
+	Desain: Royal Dark Gold (.glass design system)
+	Database: SQLite + Prisma ORM
+	Hosting: web.id — Indonesia
+	Standar SEO/AEO: schema.org JSON-LD, sitemap.xml, robots.txt, llms.txt, IndexNow

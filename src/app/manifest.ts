@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Raja Akun — Marketplace Akun Terlengkap',
-    short_name: 'RajaAkun',
+    name: 'Pusatakun — Marketplace Akun Terlengkap',
+    short_name: 'Pusatakun',
     description:
       'Marketplace jual beli akun media sosial, game, dan streaming terlengkap & terpercaya se-Indonesia. Akun murah bergaransi, proses instan, support 24/7.',
     start_url: '/',

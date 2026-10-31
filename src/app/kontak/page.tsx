@@ -11,9 +11,9 @@ import {
   Users,
 } from 'lucide-react'
 import Link from 'next/link'
-import { PageHero } from '@/components/rajaakun/page-hero'
-import { PageShell } from '@/components/rajaakun/page-shell'
-import { Reveal } from '@/components/rajaakun/motion-primitives'
+import { PageHero } from '@/components/pusatakun/page-hero'
+import { PageShell } from '@/components/pusatakun/page-shell'
+import { Reveal } from '@/components/pusatakun/motion-primitives'
 import { SITE, waLink } from '@/lib/marketplace'
 import { getPageCategories } from '@/lib/page-data'
 
@@ -22,7 +22,7 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Kontak & Bantuan Cepat',
   description:
-    'Hubungi admin Raja Akun 24/7 via WhatsApp +62 813-1651-6524 — dijawab manusia asli. Email resmi, alamat kantor Jakarta Pusat, dan panduan kanal mana untuk kebutuhanmu.',
+    'Hubungi admin Pusatakun 24/7 via WhatsApp +62 813-1651-6524 — dijawab manusia asli. Email resmi, alamat kantor Jakarta Pusat, dan panduan kanal mana untuk kebutuhanmu.',
   alternates: { canonical: '/kontak' },
   robots: { index: true, follow: true },
 }
@@ -33,7 +33,7 @@ const CHANNELS = [
     title: 'WhatsApp Admin (utama)',
     detail: SITE.whatsappDisplay,
     note: 'Online 24/7 · dijawab manusia asli · semua urusan beli, jual, dan klaim garansi dimulai di sini.',
-    href: waLink('Halo Admin Raja Akun! Saya butuh bantuan.'),
+    href: waLink('Halo Admin Pusatakun! Saya butuh bantuan.'),
     cta: 'Chat Sekarang',
     primary: true,
   },
@@ -51,7 +51,7 @@ const CHANNELS = [
     title: 'Kantor',
     detail: SITE.address,
     note: 'Kunjungan dengan janji temu — chat admin dulu untuk menjadwalkan.',
-    href: waLink('Halo Admin Raja Akun! Saya ingin menjadwalkan kunjungan ke kantor.'),
+    href: waLink('Halo Admin Pusatakun! Saya ingin menjadwalkan kunjungan ke kantor.'),
     cta: 'Jadwalkan Kunjungan',
     primary: false,
   },
@@ -62,25 +62,25 @@ const TOPICS = [
     icon: Users,
     title: 'Beli Akun',
     body: 'Tanya stok, nego harga, minta rekomendasi sesuai budget.',
-    href: waLink('Halo Admin Raja Akun! Saya mau beli akun. Boleh tanya-tanya dulu?'),
+    href: waLink('Halo Admin Pusatakun! Saya mau beli akun. Boleh tanya-tanya dulu?'),
   },
   {
     icon: Store,
     title: 'Jual Akun',
     body: 'Daftarkan akunmu, tanya proses kurasi dan pembayaran.',
-    href: waLink('Halo Admin Raja Akun! Saya mau jual akun. Bagaimana prosesnya?'),
+    href: waLink('Halo Admin Pusatakun! Saya mau jual akun. Bagaimana prosesnya?'),
   },
   {
     icon: ShieldCheck,
     title: 'Klaim Garansi',
     body: 'Akun bermasalah dalam masa garansi? Kirim video + kode pesanan.',
-    href: waLink('Halo Admin Raja Akun! Saya ingin klaim garansi untuk pesanan saya.'),
+    href: waLink('Halo Admin Pusatakun! Saya ingin klaim garansi untuk pesanan saya.'),
   },
   {
     icon: Scale,
     title: 'Kerja Sama & Lainnya',
     body: 'Reseller, kemitraan, atau pertanyaan legal/privasi.',
-    href: waLink('Halo Admin Raja Akun! Saya ingin berdiskusi soal kerja sama.'),
+    href: waLink('Halo Admin Pusatakun! Saya ingin berdiskusi soal kerja sama.'),
   },
 ] as const
 
@@ -93,7 +93,7 @@ export default async function KontakPage() {
         kicker="HUBUNGI KAMI"
         title="Kami online"
         highlight="24/7"
-        description="Satu nomor WhatsApp untuk semuanya — dijawab langsung oleh admin Raja Akun, bukan bot, bukan call center. Rata-rata dijawab dalam hitungan menit."
+        description="Satu nomor WhatsApp untuk semuanya — dijawab langsung oleh admin Pusatakun, bukan bot, bukan call center. Rata-rata dijawab dalam hitungan menit."
         breadcrumb={[{ label: 'Kontak' }]}
       />
 
