@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   AnimatePresence,
@@ -27,11 +28,11 @@ import { AccountMenu, LoginButton, MobileAccountCard } from './account-menu'
 import { EASE } from './motion-primitives'
 
 const NAV_LINKS = [
-  { label: 'Katalog', href: '#katalog' },
-  { label: 'Kategori', href: '#kategori' },
-  { label: 'Cara Kerja', href: '#cara-kerja' },
-  { label: 'Testimoni', href: '#testimoni' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Katalog', href: '/katalog' },
+  { label: 'Kategori', href: '/#kategori' },
+  { label: 'Cara Kerja', href: '/#cara-kerja' },
+  { label: 'Testimoni', href: '/#testimoni' },
+  { label: 'Bantuan', href: '/pusat-bantuan' },
 ]
 
 const PROMO_ITEMS = [
@@ -60,8 +61,8 @@ function PromoRow({ hidden = false }: { hidden?: boolean }) {
 
 function BrandMark() {
   return (
-    <a
-      href="#beranda"
+    <Link
+      href="/"
       aria-label="Raja Akun — kembali ke beranda"
       className="group flex min-h-[44px] items-center gap-3"
     >
@@ -76,7 +77,7 @@ function BrandMark() {
           {SITE.domain}
         </span>
       </span>
-    </a>
+    </Link>
   )
 }
 
@@ -150,7 +151,7 @@ export function Navbar() {
           <ul className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   className="group relative flex min-h-[44px] items-center px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
@@ -159,7 +160,7 @@ export function Navbar() {
                     aria-hidden="true"
                     className="absolute inset-x-3 bottom-2.5 h-0.5 origin-left scale-x-0 rounded-full bg-primary transition-transform duration-300 ease-out group-hover:scale-x-100"
                   />
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -243,13 +244,13 @@ export function Navbar() {
                   </SheetClose>
                   {NAV_LINKS.map((link) => (
                     <SheetClose asChild key={link.href}>
-                      <a
+                      <Link
                         href={link.href}
                         className="flex min-h-[48px] items-center justify-between rounded-xl px-4 text-base font-medium text-foreground/90 transition-colors hover:bg-primary/10 hover:text-primary"
                       >
                         {link.label}
                         <ArrowRight className="h-4 w-4 text-primary/60" aria-hidden="true" />
-                      </a>
+                      </Link>
                     </SheetClose>
                   ))}
                 </nav>

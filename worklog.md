@@ -256,3 +256,24 @@ Stage Summary:
 - Masalah transparan/tumpang tindih yang sama dilaporkan 2x — kini dituntaskan PERMANEN: permukaan .glass 100% opaque, mustahil ada bleed lagi di perangkat/browser mana pun.
 - Repo bersih: dead code dihapus, typecheck seluruh repo hijau.
 - Semua perubahan di-commit dan di-push ke github.com/gunaracorp/pusatakun (branch main).
+
+---
+Task ID: 7 (halaman-standar-internasional)
+Agent: Z.ai Code (main orchestrator)
+Task: Permintaan user — "buat halaman2 yang menurut standard internasional belum dibuat" — audit & bangun seluruh halaman esensial marketplace standar internasional (SEO, legal, trust, error).
+
+Work Log:
+- AUDIT: situs sebelumnya hanya punya /, /masuk, /daftar, /admin. Halaman produk tidak punya URL sendiri (hanya sheet), tidak ada halaman legal, tidak ada 404/error/loading kustom, footer/navbar tidak menautkan halaman bantuan.
+- INFRASTRUKTUR BARU: src/lib/page-data.ts (helper query server: kategori, produk by slug, produk terkait, slug sitemap); src/components/rajaakun/page-shell.tsx (shell bersama Navbar+Footer sticky+floating untuk semua subhalaman, sinkron sesi via fetchMe); page-hero.tsx (PageHero + Breadcrumbs server-safe); legal-article.tsx (kerangka artikel legal: daftar isi sticky anchor + LegalSection + LegalList + CTA bantuan).
+- BARU /produk/[slug]: halaman detail produk server-render — generateMetadata (judul+harga, canonical, OG/Twitter), JSON-LD Product (offer InStock/IDR, AggregateRating, seller) + BreadcrumbList 4 tingkat, deskripsi+spesifikasi, kotak beli sticky (harga, bar stok, Beli via WA, salin nama, bullet garansi), produk terkait satu kategori (klik = navigasi halaman). SEO: judul kartu produk di ProductCard kini Link crawlable ke /produk/[slug]; sheet detail produk dapat tombol "Halaman Produk Lengkap" + tautan S&K/Garansi.
+- BARU /katalog: katalog penuh dengan URL sendiri — sr-only h1, breadcrumb, JSON-LD Breadcrumb+ItemList, mendukung query ?kategori=<slug> & ?q= (diterapkan via catalog-store saat mount); komponen katalog asli dipakai ulang utuh.
+- BARU LEGAL (konten lengkap bahasa Indonesia, memakai data nyata SITE): /syarat-ketentuan (13 bab: definisi, akun, aturan pembeli/penjual, transaksi dibantu admin WA, garansi, larangan, penangguhan, batasan tanggung jawab, hukum RI: UU PDP 27/2022, UU ITE, UU PK 8/1999); /kebijakan-privasi (12 bab selaras UU PDP: data dikumpulkan, dasar pemrosesan, cookie ra_session httpOnly, berbagi data, keamanan, retensi, hak pengguna, anak, transfer, kontak); /garansi (janji garansi, masa garansi per tier Full 30 Hari/7 Hari/1 Hari, klaim 4 langkah kartu, ganti/refund, SLA waktu, kondisi pembatalan & luar cakupan, tips video serah terima).
+- BARU TRUST: /tentang (cerita sejak 2021, CountUp statistik live dari db, identitas resmi PT, 4 nilai, CTA); /kontak (3 kanal kartu — WA utama/email/kantor, 4 topik cepat WA pre-filled, tabel SLA jam layanan, tautan cepat); /pusat-bantuan (4 pintasan, cara beli 4 langkah, cara jual 4 langkah, glosarium level FRESH/AMAN/PREMIUM/MONETIZE, FAQ dari database + FAQ JSON-LD).
+- BARU error pages: not-found.tsx (404 royal: 404 gold gradient + CTA katalog/beranda/pusat bantuan/lapor admin), error.tsx (boundary client + reset + lapor WA), loading.tsx (skeleton branded).
+- INTEGRASI: navbar NAV_LINKS -> /katalog, /#kategori, /#cara-kerja, /#testimoni, /pusat-bantuan (semua via next/link agar anchor mulus lintas halaman; brand mark -> /); footer kolom Jelajah baru (Beranda/Katalog/Tentang/Pusat Bantuan/Kontak/Cara Kerja/Testimoni) + baris tautan legal di bottom bar; seo.ts: URL offer ItemList -> /produk/<slug> (sebelumnya /#produk-slug), breadcrumbJsonLd -> /katalog, helper baru productJsonLd + breadcrumbListJsonLd; sitemap.ts async -> 10 rute statis + SEMUA halaman produk dari db (prioritas 0.8).
+- VERIFIKASI: eslint 0 error; tsc --noEmit hijau; SEMUA rute 200 (/katalog /produk/x /tentang /kontak /pusat-bantuan /syarat-ketentuan /kebijakan-privasi /garansi) dan /halaman-tidak-ada -> 404 kustom; ?kategori=email terfilter (3 dari 3); JSON-LD Product+BreadcrumbList terverifikasi di DOM; browser 732px & 1440px: breadcrumb, buy box sticky, related grid, daftar isi legal, footer legal — semua solid tanpa transparansi; console browser bersih; fix di jalan: RelatedHeading tidak terdefinisi (diganti Reveal), import hilang TentangPage/getPageCategories, breadcrumb ganda /pusat-bantuan dihapus, ekspor ilegal di app/katalog/page.tsx dihapus.
+
+Stage Summary:
+- Dari 4 rute menjadi 15+ rute berstandar internasional: halaman produk per-URL (SEO dengan structured data), katalog mandiri, 3 halaman legal, 3 halaman trust, 404/error/loading kustom.
+- Semua halaman sub mewarisi shell konsisten (navbar/footer sticky/solid, floating WA, back-to-top) dan desain royal dark gold.
+- Sitemap kini memuat seluruh URL produk; navbar/footer menghubungkan semua halaman; internal linking sheet<->halaman produk lengkap.

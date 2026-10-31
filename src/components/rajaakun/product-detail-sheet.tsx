@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { BadgeCheck, Check, Copy, MessageCircle, Package, ShieldCheck, Star, Zap } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowRight, BadgeCheck, Check, Copy, MessageCircle, Package, ShieldCheck, Star, Zap } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -163,6 +164,13 @@ export function ProductDetailSheet({
                 Beli via WhatsApp
               </a>
             </Button>
+            <Link
+              href={`/produk/${product.slug}`}
+              className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-primary/40 px-4 text-sm font-bold text-primary transition-colors hover:bg-primary/10"
+            >
+              Halaman Produk Lengkap
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
             <Button
               variant="secondary"
               onClick={copyName}
@@ -173,8 +181,15 @@ export function ProductDetailSheet({
               {copied ? 'Nama produk tersalin!' : 'Salin nama produk'}
             </Button>
             <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
-              Dengan membeli, kamu setuju dengan Syarat &amp; Ketentuan garansi Raja Akun.
-              Klaim garansi cukup chat admin dengan bukti video penerimaan.
+              Dengan membeli, kamu setuju dengan{' '}
+              <Link href="/syarat-ketentuan" className="font-semibold text-primary underline-offset-2 hover:underline">
+                Syarat &amp; Ketentuan
+              </Link>{' '}
+              dan{' '}
+              <Link href="/garansi" className="font-semibold text-primary underline-offset-2 hover:underline">
+                Kebijakan Garansi
+              </Link>{' '}
+              Raja Akun. Klaim garansi cukup chat admin dengan bukti video penerimaan.
             </p>
           </div>
         </div>

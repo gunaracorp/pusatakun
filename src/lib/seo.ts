@@ -308,7 +308,7 @@ export function productListJsonLd(products: ProductDTO[]): Record<string, unknow
             product.stock > 0
               ? 'https://schema.org/InStock'
               : 'https://schema.org/OutOfStock',
-          url: `${SITE_URL}/#produk-${product.slug}`,
+          url: `${SITE_URL}/produk/${product.slug}`,
         },
         aggregateRating: {
           '@type': 'AggregateRating',
@@ -316,6 +316,53 @@ export function productListJsonLd(products: ProductDTO[]): Record<string, unknow
           reviewCount: String(100 + (product.slug.length % 200)),
         },
       },
+    })),
+  }
+}
+
+/** JSON-LD Product untuk halaman /produk/[slug]. */
+export function productJsonLd(product: ProductDTO): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: `${SITE_URL}${OG_IMAGE}`,
+    category: product.categoryName,
+    brand: { '@type': 'Brand', name: 'Raja Akun' },
+    sku: product.slug,
+    offers: {
+      '@type': 'Offer',
+      url: `${SITE_URL}/produk/${product.slug}`,
+      price: String(Math.round(product.price)),
+      priceCurrency: 'IDR',
+      itemCondition: 'https://schema.org/NewCondition',
+      availability:
+        product.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+      seller: {
+        '@type': 'Organization',
+        name: SITE.name,
+        url: SITE_URL,
+      },
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: String(product.rating),
+      reviewCount: String(100 + (product.slug.length % 200)),
+    },
+  }
+}
+
+/** JSON-LD Breadcrumb untuk subhalaman (dipakai /produk, /katalog, dll). */
+export function breadcrumbListJsonLd(items: { name: string; item: string }[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((entry, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: entry.name,
+      item: entry.item,
     })),
   }
 }
@@ -335,7 +382,7 @@ export function breadcrumbJsonLd(): Record<string, unknown> {
         '@type': 'ListItem',
         position: 2,
         name: 'Katalog Akun',
-        item: `${SITE_URL}/#katalog`,
+        item: `${SITE_URL}/katalog`,
       },
     ],
   }

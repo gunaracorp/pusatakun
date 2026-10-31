@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Flame, ShieldCheck, Star, Zap } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -74,7 +75,13 @@ export function ProductCard({
         {/* Title & meta */}
         <div className="flex-1">
           <h3 className="line-clamp-2 min-h-[2.5rem] text-sm font-bold leading-snug text-foreground">
-            {product.name}
+            <Link
+              href={`/produk/${product.slug}`}
+              className="transition-colors hover:text-primary"
+              aria-label={`Lihat halaman lengkap ${product.name}`}
+            >
+              {product.name}
+            </Link>
           </h3>
           <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
             <span className="font-medium text-primary/90">{product.categoryName}</span>

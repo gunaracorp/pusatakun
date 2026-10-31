@@ -1,16 +1,24 @@
 'use client'
 
+import Link from 'next/link'
 import { ArrowUpRight, Clock, Crown, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { SITE, waLink, type CategoryDTO } from '@/lib/marketplace'
 import { useCurrentYear } from '@/lib/use-current-year'
 
 const NAV_LINKS = [
-  { label: 'Katalog', href: '#katalog' },
-  { label: 'Penjual Terverifikasi', href: '#studio-penjual' },
-  { label: 'Cara Kerja', href: '#cara-kerja' },
-  { label: 'Testimoni', href: '#testimoni' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Keunggulan', href: '#keunggulan' },
+  { label: 'Beranda', href: '/' },
+  { label: 'Katalog Akun', href: '/katalog' },
+  { label: 'Tentang Kami', href: '/tentang' },
+  { label: 'Pusat Bantuan', href: '/pusat-bantuan' },
+  { label: 'Kontak', href: '/kontak' },
+  { label: 'Cara Kerja', href: '/#cara-kerja' },
+  { label: 'Testimoni', href: '/#testimoni' },
+]
+
+const LEGAL_LINKS = [
+  { label: 'Syarat & Ketentuan', href: '/syarat-ketentuan' },
+  { label: 'Kebijakan Privasi', href: '/kebijakan-privasi' },
+  { label: 'Kebijakan Garansi & Pengembalian', href: '/garansi' },
 ]
 
 export function Footer({ categories }: { categories: CategoryDTO[] }) {
@@ -99,20 +107,20 @@ export function Footer({ categories }: { categories: CategoryDTO[] }) {
             </ul>
           </nav>
 
-          {/* Navigation */}
+          {/* Navigasi */}
           <nav aria-label="Navigasi footer">
             <h3 className="text-sm font-bold uppercase tracking-widest text-foreground">
-              Navigasi
+              Jelajah
             </h3>
             <ul className="mt-4 space-y-1">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="inline-flex min-h-[36px] items-center text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -162,6 +170,18 @@ export function Footer({ categories }: { categories: CategoryDTO[] }) {
             <p>© {year} Raja Akun — {SITE.domain} · {SITE.company}</p>
             <p className="font-semibold text-primary/80">{SITE.tagline}</p>
           </div>
+          {/* Tautan legal (standar internasional) */}
+          <nav aria-label="Tautan legal" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            {LEGAL_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex min-h-[32px] items-center text-[11px] font-semibold text-muted-foreground underline-offset-4 transition-colors hover:text-primary hover:underline"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
           {/* Baris kredit sistem (branding internal — halus & crawlable) */}
           <p className="text-center text-[11px] leading-relaxed text-muted-foreground/60">
             Support system oleh{' '}
