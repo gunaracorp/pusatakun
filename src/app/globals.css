@@ -162,13 +162,13 @@
     animation: shine 6s linear infinite;
   }
 
-  /* Frosted glass panel — near-opaque royal dark.
-     PENTING: alpha 96% agar konten di bawah TIDAK menembus meski
-     backdrop-filter tidak didukung browser (anti tumpang tindih). */
+  /* Royal panel — 100% OPAQUE.
+     PENTING (fix laporan user ke-2): alpha 96% masih memperlihatkan
+     bayangan teks kartu di belakang navbar/filter sticky (4% bleed
+     terlihat di layar gelap). Sekarang FULL SOLID — nol bleed di
+     browser apa pun, dengan atau tanpa backdrop-filter. */
   .glass {
-    background: oklch(0.17 0.012 70 / 96%);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: oklch(0.185 0.014 70);
     border: 1px solid oklch(1 0 0 / 10%);
   }
 
