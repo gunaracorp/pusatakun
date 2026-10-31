@@ -326,3 +326,14 @@ Permintaan user: "buatkan halaman super lengkap banyak halaman2 baru yang banyak
 - DATA: src/lib/blog-data.ts (6 artikel + BLOG_CATEGORIES + getRelatedArticles + formatDateID) & src/lib/kamus-data.ts (24 istilah 4 kategori + searchKamus).
 - BUG DITEMUKAN & DIPERBAIKI SAAT QA: formatDateID destruktur [,y,m,d] melompati tahun -> "NaN Des 10" (diperbaiki [y,m,d]); react-hooks/set-state-in-effect pada countdown promo (setTimeout 0 async); unused eslint-disable pada img media-kit; kpis array union type tsc (decimals eksplisit semua item).
 - VERIFIKASI: eslint 0/0; tsc --noEmit bersih; 12/12 route baru 200; API lacak valid (data demo) + invalid (pesan ramah 404); sitemap 74 URL; screenshot browser: statistik, promo, lacak (hasil interaktif), blog index, blog detail — semua konsisten royal gold, PageShell+PageHero+Reveal, mobile-safe.
+
+## Task: Sinkronisasi ulang sandbox + scrub DB kedua (2026-11-01)
+
+Laporan user: "kenapa kembali lagi tampilannya ke raja akun" + error console hydration mismatch (trace menunjuk src/components/rajaakun/*).
+
+- AKAR MASALAH: direktori kerja /home/z/my-project/pusatakun/ (tempat rebrand & 11 halaman baru) HILANG setelah sandbox di-recycle; preview kembali menyajikan pohon proyek LAMA di /home/z/my-project/ yang masih berisi src/components/rajaakun/ + marketplace.ts "Raja Akun". GitHub TIDAK pernah kembali — main masih 90bb348 (semua pekerjaan aman).
+- FIX: git fetch main dari GitHub (token per-push via URL), `git reset --hard FETCH_HEAD` -> working tree kini identik 90bb348 (src/components/pusatakun/, brand Pusatakun, 12 route baru ikut kembali); bun install (no changes) + prisma generate.
+- TEMUAN BARU: db/custom.db yang ter-commit di GitHub ternyata SNAPSHOT PRA-SCRUB — homepage masih menyajikan 15x "Raja Akun" dari isi FAQ (3 soal), testimoni (1), listing (1). Dijalankan ulang prisma/scripts/db-rebrand.ts (idempoten, proteksi rajaakun2026): 5 baris diperbarui, sisa kotor 0. DB hasil scrub di-commit agar tidak kambuh.
+- VERIFIKASI HYDRATION: kode lama memang punya hydration mismatch Radix (aria-controls/id) — kode terbaru DIUJI browser headless (viewport 1280x800, networkidle): console 0 pesan, page errors 0. Bug itu milik pohon lama; tidak ada lagi di kode aktif.
+- VERIFIKASI AKHIR: 20 route 200 (/, /katalog, /blog, /promo, /lacak, /kalkulator, /statistik, /kamus, /ulasan, /cek-garansi, /mitra, /pedoman-media, /peta-situs, /tentang, /masuk, /daftar, /admin, sitemap.xml, robots.txt, llms.txt); HTML semua halaman 0 "Raja Akun|rajaakun.web.id" (sisa "rajaakun" hanya email terproteksi rajaakun2026@gmail.com di JSON-LD/footer); eslint 0/0; tsc bersih (skills & upload ditambahkan ke exclude tsconfig); screenshot home/katalog/promo/blog konsisten royal gold.
+- PELAJARAN: setelah recycle sandbox, SELALU cek git status + brand check sebelum preview; DB adalah sumber konten — commit hasil scrub DB, bukan hanya source code.
