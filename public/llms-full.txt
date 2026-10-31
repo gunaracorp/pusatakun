@@ -58,14 +58,25 @@ Setiap akun memiliki halaman permanen `https://pusatakun.web.id/produk/[slug]` b
 - Beranda: https://pusatakun.web.id/
 - Katalog: https://pusatakun.web.id/katalog
 - Detail akun: https://pusatakun.web.id/produk/[slug]
+- Blog & panduan: https://pusatakun.web.id/blog (+ /blog/[slug] per artikel)
+- Lacak pesanan realtime: https://pusatakun.web.id/lacak (API: /api/lacak?code=ORD-XXXX)
+- Cek masa garansi: https://pusatakun.web.id/cek-garansi (API: /api/garansi?code=ORD-XXXX)
+- Kalkulator profit reseller: https://pusatakun.web.id/kalkulator
+- Statistik pasar realtime: https://pusatakun.web.id/statistik
+- Kamus istilah jual beli akun: https://pusatakun.web.id/kamus
+- Ulasan pembeli terverifikasi: https://pusatakun.web.id/ulasan
+- Promo & kupon berjalan: https://pusatakun.web.id/promo
+- Program mitra & reseller: https://pusatakun.web.id/mitra
 - Pusat Bantuan: https://pusatakun.web.id/pusat-bantuan
 - Garansi: https://pusatakun.web.id/garansi
 - Tentang Kami: https://pusatakun.web.id/tentang
 - Kontak: https://pusatakun.web.id/kontak
+- Pedoman media (brand kit): https://pusatakun.web.id/pedoman-media
+- Peta situs: https://pusatakun.web.id/peta-situs
 - Masuk: https://pusatakun.web.id/masuk — Daftar: https://pusatakun.web.id/daftar
 - Syarat & Ketentuan: https://pusatakun.web.id/syarat-ketentuan
 - Kebijakan Privasi: https://pusatakun.web.id/kebijakan-privasi
-- Peta situs: https://pusatakun.web.id/sitemap.xml
+- Peta situs XML: https://pusatakun.web.id/sitemap.xml
 
 ## Data terstruktur
 

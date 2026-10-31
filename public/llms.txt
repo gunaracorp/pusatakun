@@ -8,10 +8,21 @@ Pusatakun berdedikasi menjadi referensi terpercaya untuk topik jual beli akun di
 
 - [Beranda](https://pusatakun.web.id/): ringkasan layanan, katalog unggulan, testimoni, FAQ, dan statistik pasar terkini.
 - [Katalog Akun](https://pusatakun.web.id/katalog): katalog lengkap 47+ jenis akun dengan filter kategori, level keamanan (FRESH/AMAN/PREMIUM/MONETIZE), dan rentang harga; 1 URL permanen per produk di /produk/[slug].
+- [Blog & Panduan](https://pusatakun.web.id/blog): artikel edukasi tim Pusatakun — panduan aman membeli akun, arti level akun, cara kerja escrow, panduan penjual, dan insight harga.
+- [Lacak Pesanan](https://pusatakun.web.id/lacak): pelacak status pesanan realtime cukup dengan kode pesanan (ORD-XXXX).
+- [Cek Garansi](https://pusatakun.web.id/cek-garansi): sisa masa garansi pesanan berdasarkan kode pesanan, dihitung langsung dari sistem.
+- [Kalkulator Reseller](https://pusatakun.web.id/kalkulator): kalkulator profit interaktif untuk penjual — penerimaan 90%, komisi, margin, ROI.
+- [Statistik Pasar](https://pusatakun.web.id/statistik): angka pasar terbuka dihitung realtime dari database — jumlah akun, unit terjual, rating, distribusi kategori.
+- [Kamus Istilah](https://pusatakun.web.id/kamus): glosarium 24 istilah jual beli akun (FRESH, AMAN, escrow, shadowban, PVA, dst.) dengan definisi ringkas.
+- [Ulasan Pembeli](https://pusatakun.web.id/ulasan): semua testimoni terverifikasi dengan filter rating.
+- [Promo & Kupon](https://pusatakun.web.id/promo): promo berjalan, flash sale harian, dan kupon aktif.
+- [Program Mitra](https://pusatakun.web.id/mitra): program reseller — toko gratis, komisi 90/10, tier mitra, dan langkah daftar.
 - [Pusat Bantuan](https://pusatakun.web.id/pusat-bantuan): cara membeli 4 langkah, cara menjadi penjual, arti level akun, dan jawaban pertanyaan yang paling sering ditanyakan.
 - [Garansi](https://pusatakun.web.id/garansi): kebijakan garansi per jenis akun, cara klaim langkah demi langkah, pilihan penggantian akun atau pengembalian dana.
 - [Tentang Kami](https://pusatakun.web.id/tentang): profil perusahaan, misi, nilai, cara kerja kurasi admin, dan komitmen garansi.
 - [Kontak](https://pusatakun.web.id/kontak): WhatsApp resmi +62 813-1651-6524 (dijawab manusia asli 24/7), email, dan alamat kantor Jakarta Pusat.
+- [Pedoman Media](https://pusatakun.web.id/pedoman-media): brand kit resmi untuk media & mitra — palet warna, logo, tipografi, boilerplate.
+- [Peta Situs](https://pusatakun.web.id/peta-situs): daftar semua halaman situs (versi mesin: /sitemap.xml).
 - [Daftar / Masuk](https://pusatakun.web.id/daftar): login tanpa kata sandi via nomor WhatsApp + OTP 6 digit; satu akun untuk beli & jual.
 
 ## Kebijakan

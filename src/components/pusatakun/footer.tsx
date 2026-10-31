@@ -8,12 +8,22 @@ import { useCurrentYear } from '@/lib/use-current-year'
 const NAV_LINKS = [
   { label: 'Beranda', href: '/' },
   { label: 'Katalog Akun', href: '/katalog' },
+  { label: 'Lacak Pesanan', href: '/lacak' },
+  { label: 'Cek Garansi', href: '/cek-garansi' },
+  { label: 'Blog & Panduan', href: '/blog' },
+  { label: 'Kamus Istilah', href: '/kamus' },
+  { label: 'Statistik Pasar', href: '/statistik' },
+  { label: 'Promo & Kupon', href: '/promo' },
+  { label: 'Ulasan Pembeli', href: '/ulasan' },
+  { label: 'Program Mitra', href: '/mitra' },
+  { label: 'Kalkulator Reseller', href: '/kalkulator' },
   { label: 'Dashboard Akun', href: '/dashboard' },
   { label: 'Tentang Kami', href: '/tentang' },
   { label: 'Pusat Bantuan', href: '/pusat-bantuan' },
   { label: 'Kontak', href: '/kontak' },
+  { label: 'Pedoman Media', href: '/pedoman-media' },
+  { label: 'Peta Situs', href: '/peta-situs' },
   { label: 'Cara Kerja', href: '/#cara-kerja' },
-  { label: 'Testimoni', href: '/#testimoni' },
 ]
 
 const LEGAL_LINKS = [

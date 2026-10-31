@@ -29,9 +29,10 @@ import { EASE } from './motion-primitives'
 
 const NAV_LINKS = [
   { label: 'Katalog', href: '/katalog' },
+  { label: 'Lacak', href: '/lacak' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Kategori', href: '/#kategori' },
   { label: 'Cara Kerja', href: '/#cara-kerja' },
-  { label: 'Testimoni', href: '/#testimoni' },
   { label: 'Bantuan', href: '/pusat-bantuan' },
 ]
 
